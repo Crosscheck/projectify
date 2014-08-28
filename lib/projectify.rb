@@ -19,6 +19,7 @@ class Projectify
 
   def self.create_structure(value)
     if Dir.mkdir(value)
+      output = `cd {value};touch readme.md`
       return true
     else
       return false
