@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require 'projectify'
+require 'colorize'
+
+puts "Creating directory structure"
+if Projectify.create_root_dir(ARGV[0]) == true
+
+  puts "Creating directory structure failed [" + "ERROR".red + "]"
+
+end
