@@ -1,0 +1,64 @@
+require 'optparse'
+
+options = {}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: gitify [options]"
+
+  opts.on("-n", "--namespace=NAMESPACE", "Define the namespace of the repository. if this is empty, no namespace will be used.") do |namespace|
+    options[:namespace] = namespace
+  end
+
+  opts.on("-g", "--git=REPOSITORY", "Define the repository.git | Example: --git=test.git") do |git|
+    options[:git] = git
+  end
+
+  opts.on("-a", "--all", "Provision all branches. (Staging, Acc, Production, Master)") do |all|
+        options[:all] = all
+  end
+
+  opts.on("-br", "--branche=BRANCHES", "Branches split by a ,") do |branches|
+        options[:branches] = branches
+  end
+
+  opts.on("-p", "--projecttype=TYPE", "Type: drupal(didi) or general (capistano)") do |type|
+      options[:type] = type
+  end
+
+  opts.on("-d", "--directory=DIRECTORY", "The place where gitify has to create your structure") do |dir|
+      options[:dir] = dir
+  end
+end.parse!
+
+branch_arr = []
+
+if options[:all]
+  branch_arr = ["staging","acc","production"]
+elsif options[:branches].length > 0
+  branch_arr = options[:branches].split(',')
+else
+  puts "No branches defined. Will only provision master branch."
+end
+
+namespace = options.has_key?(:namespace) ? options[:namespace] + "/" : ""
+
+
+if options.has_key?(:type) && options.has_key?(:dir)
+  command = options.values_at(:type, :dir).join(" ")
+elsif options.has_key?(:dir)
+  command = options[:dir]
+else
+  puts "You have to define at least your directory!"
+  exit
+end
+
+
+output_git_clone = `git clone git@gitlab.crosscheck.be:#{namespace}#{options[:git]}`
+if $?.success?
+  output_projectify_master = ` cd #{options[:git][0..-5]} && projectify #{command} && git add . && git commit -am "Initial structure" && git push origin master`
+  branch_arr.each do |branch|
+    output_branch = `cd #{options[:git][0..-5]} && git branch #{branch} && git checkout #{branch} && git push origin #{branch}`
+  end
+else
+  puts "Something went horribly wrong."
+end
