@@ -1,7 +1,7 @@
 require 'colorize'
 Gem::Specification.new do |s|
   s.name        = 'projectify'
-  s.version     = '0.5.12'
+  s.version     = '0.6.0'
   s.date        = '2014-08-28'
   s.summary     = "Projectify your setup!"
   s.description = "A small gem that creates a basic structure for a development project with drupal."
@@ -13,4 +13,5 @@ Gem::Specification.new do |s|
     'http://github.com/CrossCheck/projectify'
   s.license       = 'MIT'
   s.add_dependency 'colorize'
+
 end
