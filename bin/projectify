@@ -51,25 +51,32 @@ if options[:directory].include? "."
 end
 
 puts "Creating directory structure"
-
-if options[:project_type] == "drupal"
-  if Projectify.create_dir_drupal(location) == true
-    puts "Creating drupal directory structure succeeded [" + "SUCCES".green + "]"
-  else
-    puts "Creation of drupal directory structure failed [" + "ERROR".red + "]"
-  end
-elsif options[:project_type] == "capistrano"
-  if Projectify.create_dir_default(location) == true
-    puts "Creating default directory structure succeeded [" + "SUCCES".green + "]"
-  else
-    puts "Creation of default directory structure failed [" + "ERROR".red + "]"
-  end
+if options.has_key?(:project_type)
+    if options[:project_type] == "drupal"
+      if Projectify.create_dir_drupal(location) == true
+        puts "Creating drupal directory structure succeeded [" + "SUCCES".green + "]"
+      else
+        puts "Creation of drupal directory structure failed [" + "ERROR".red + "]"
+      end
+    elsif options[:project_type] == "capistrano"
+      if Projectify.create_dir_default(location) == true
+        puts "Creating default directory structure succeeded [" + "SUCCES".green + "]"
+      else
+        puts "Creation of default directory structure failed [" + "ERROR".red + "]"
+      end
+    else
+      if Projectify.create_dir_drupal(location) == true
+        puts "Creating drupal directory structure succeeded [" + "SUCCES".green + "]"
+      else
+        puts "Creation of drupal directory structure failed [" + "ERROR".red + "]"
+      end
+    end
 else
-  if Projectify.create_dir_drupal(location) == true
-    puts "Creating drupal directory structure succeeded [" + "SUCCES".green + "]"
-  else
-    puts "Creation of drupal directory structure failed [" + "ERROR".red + "]"
-  end
+    if Projectify.create_dir_drupal(location) == true
+        puts "Creating drupal directory structure succeeded [" + "SUCCES".green + "]"
+    else
+        puts "Creation of drupal directory structure failed [" + "ERROR".red + "]"
+    end  
 end
 
 if Projectify.create_structure(location + "vagrant")
@@ -118,13 +125,13 @@ else
     puts "Creating varnish files... [" + "FAILED".red + "]"    
 end
 
-if Projectify.create_gem_directories(location)
+if Projectify.create_gem_files(location)
     puts "Creating gem files... [" + "SUCCESS".green + "]"
 else
     puts "Creating gem files... [" + "FAILED".red + "]"    
 end
 
-if Projectify.create_npm_directories(location)
+if Projectify.create_npm_files(location)
     puts "Creating npm files... [" + "SUCCESS".green + "]"
 else
     puts "Creating npm files... [" + "FAILED".red + "]"    

@@ -90,18 +90,28 @@ namespace = options.has_key?(:namespace) ? options[:namespace] + "/" : ""
 
 
 if options.has_key?(:type) && options.has_key?(:dir)
-  command = options.values_at(:type, :dir).join(" ")
+  #command = options.values_at(:type, :dir).join(" ")
+    direc = options[:dir]
+    typec = options[:type]
 elsif options.has_key?(:dir)
-  command = options[:dir]
+  #command = options[:dir]
+    direc = options[:dir]
+    typec = ""
 else
   puts "You have to define at least your directory!"
   exit
 end
 
+if typec.length > 1
+    
+    full_direc_typec = "--directory=#{direc} --type=#{typec}"
+else
+    full_direc_typec = "--directory=#{direc}"
+end
 
 output_git_clone = `git clone git@#{options[:gitlab_url]}:#{namespace}#{options[:git]}`
 if $?.success?
-  output_projectify_master = ` cd #{options[:git][0..-5]} && projectify --directory=#{command} --project_name=#{options[:project_name]} --host_name=#{options[:host_name]}&& git add . && git commit -am "Initial structure" && git push origin master`
+  output_projectify_master = ` cd #{options[:git][0..-5]} && projectify #{full_direc_typec} --project_name=#{options[:project_name]} --host_name=#{options[:host_name]}&& git add . && git commit -am "Initial structure" && git push origin master`
   branch_arr.each do |branch|
     output_branch = `cd #{options[:git][0..-5]} && git branch #{branch} && git checkout #{branch} && git push origin #{branch}`
   end

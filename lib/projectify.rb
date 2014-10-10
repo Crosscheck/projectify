@@ -6,6 +6,7 @@ require 'colorize'
 
 class Projectify
   def self.create_dir_drupal(directory)
+      puts directory
     output = `didify #{directory}`
     if output.include? "didified"
       return true
