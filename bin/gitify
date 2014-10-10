@@ -15,7 +15,7 @@ OptionParser.new do |opts|
     options[:project_name] = project_name
   end
   
-  opts.on("-d", "--domain=LOCALDOMAIN", "Define the local development domain for this project. If this is empty, local.dev will be used.") do |domain|
+  opts.on("-d", "--domain=LOCALDOMAIN", "Define the local development domain for this project. If this is empty, PROJECTNAME.dev will be used.") do |domain|
     options[:domain] = domain
   end
     

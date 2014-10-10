@@ -15,16 +15,28 @@ OptionParser.new do |opts|
   opts.on("-d", "--directory=DIRECTORY", "Define the directory for this project. This is required!.") do |directory|
     options[:directory] = directory
   end
+    
+  opts.on("-p", "--project_name=PROJECTNAME", "Define the project name for your project. If this is empty, \"CrossCheck\" will be used.") do |project_name|
+    options[:project_name] = project_name
+  end
+    
+  opts.on("-h", "--host_name=DOMAIN", "Define the local domain for your project. If this is empty, PROJECTNAME.dev will be used.") do |domain|
+    options[:domain] = domain
+  end    
 end.parse!
 
-
-if !ARGV[0].include? "."
-  if ARGV.length == 1
-    puts "Don't forget the directory argument!"
+########## Option checks ##########
+if options[:directory].length <= 1
+    puts "You have to define a directory!".red
     exit
-  end
 end
 
+if options[:project_name].length <= 1
+    puts "You have to define a project name!".red
+end
+########## Option checks ##########
+
+########## Basic directory structure ##########
 location = ""
 
 if options[:directory].include? "."
@@ -83,3 +95,5 @@ if Projectify.create_structure(location + "scripts")
  else
   puts "Creating scripts directory... [" + "FAILED".red + "]"
 end
+
+########## Basic Directory Structure ##########
