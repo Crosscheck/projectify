@@ -97,3 +97,37 @@ if Projectify.create_structure(location + "scripts")
 end
 
 ########## Basic Directory Structure ##########
+
+########## Basic File Structure ##########
+
+if Projectify.create_script_directories(location)
+    puts "Creating specific directory structures... [" + "SUCCESS".green + "]"
+else
+    puts "Creating specific directory structures... [" + "FAILED".red + "]"    
+end
+
+if Projectify.create_script_files(location)
+    puts "Creating script files... [" + "SUCCESS".green + "]"
+else
+    puts "Creating script files... [" + "FAILED".red + "]"    
+end
+
+if Projectify.create_varnish_files(location)
+    puts "Creating varnish files... [" + "SUCCESS".green + "]"
+else
+    puts "Creating varnish files... [" + "FAILED".red + "]"    
+end
+
+if Projectify.create_gem_directories(location)
+    puts "Creating gem files... [" + "SUCCESS".green + "]"
+else
+    puts "Creating gem files... [" + "FAILED".red + "]"    
+end
+
+if Projectify.create_npm_directories(location)
+    puts "Creating npm files... [" + "SUCCESS".green + "]"
+else
+    puts "Creating npm files... [" + "FAILED".red + "]"    
+end
+
+##########################################
