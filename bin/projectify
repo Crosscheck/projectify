@@ -64,7 +64,7 @@ elsif options[:project_type] == "capistrano"
   else
     puts "Creation of default directory structure failed [" + "ERROR".red + "]"
   end
-elsif options[:project_type].include? "."
+else
   if Projectify.create_dir_drupal(location) == true
     puts "Creating drupal directory structure succeeded [" + "SUCCES".green + "]"
   else
