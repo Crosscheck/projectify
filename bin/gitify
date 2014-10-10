@@ -11,6 +11,14 @@ namespace_id = 0
 OptionParser.new do |opts|
   opts.banner = "Usage: gitify [options]"
 
+  opts.on("-p", "--project_name=PROJECT_NAME", "Define the project name for your project. If this is empty, \"CrossCheck\" will be used.") do |project_name|
+    options[:project_name] = project_name
+  end
+  
+  opts.on("-d", "--domain=LOCALDOMAIN", "Define the local development domain for this project. If this is empty, PROJECTNAME.dev will be used.") do |domain|
+    options[:domain] = domain
+  end
+    
   opts.on("-n", "--namespace=NAMESPACE", "Define the namespace of the repository. if this is empty, no namespace will be used.") do |namespace|
     options[:namespace] = namespace
   end
@@ -93,7 +101,7 @@ end
 
 output_git_clone = `git clone git@#{options[:gitlab_url]}:#{namespace}#{options[:git]}`
 if $?.success?
-  output_projectify_master = ` cd #{options[:git][0..-5]} && projectify #{command} && git add . && git commit -am "Initial structure" && git push origin master`
+  output_projectify_master = ` cd #{options[:git][0..-5]} && projectify --directory=#{command} --project_name=#{options[:project_name]} --host_name=#{options[:host_name]}&& git add . && git commit -am "Initial structure" && git push origin master`
   branch_arr.each do |branch|
     output_branch = `cd #{options[:git][0..-5]} && git branch #{branch} && git checkout #{branch} && git push origin #{branch}`
   end

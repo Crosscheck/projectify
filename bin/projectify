@@ -1,59 +1,70 @@
 #!/usr/bin/env ruby
-
+require 'optparse'
 require 'projectify'
 require 'colorize'
 
-unless ARGV.length >= 1
-  puts "Use the right amount of arguments!"
-  puts "Usage: projectify type<drupal/general> optional<directory>"
-  puts "Directory can also be used as first argument, and without a second, it will execute default drupal structure"
-  exit
-end
+options = {}
 
-if !ARGV[0].include? "."
-  if ARGV.length == 1
-    puts "Don't forget the directory argument!"
-    exit
+OptionParser.new do |opts|
+  opts.banner = "Usage: projectify [options]"
+
+  opts.on("-t", "--type=type", "Define the type for your project (general/drupal/capistrano). If this is empty, drupal will be used.") do |project_type|
+    options[:project_type] = project_type
   end
+  
+  opts.on("-d", "--directory=DIRECTORY", "Define the directory for this project. This is required!.") do |directory|
+    options[:directory] = directory
+  end
+    
+  opts.on("-p", "--project_name=PROJECTNAME", "Define the project name for your project. If this is empty, \"CrossCheck\" will be used.") do |project_name|
+    options[:project_name] = project_name
+  end
+    
+  opts.on("-h", "--host_name=DOMAIN", "Define the local domain for your project. If this is empty, PROJECTNAME.dev will be used.") do |domain|
+    options[:domain] = domain
+  end    
+end.parse!
+
+########## Option checks ##########
+if options[:directory].length <= 1
+    puts "You have to define a directory!".red
+    exit
 end
 
+if options[:project_name].length <= 1
+    puts "You have to define a project name!".red
+end
+########## Option checks ##########
+
+########## Basic directory structure ##########
 location = ""
 
-if ARGV[0].include? "."
-  if ARGV[0].include? "/"
-    location = ARGV[0]
-    if ARGV[0][-1, 1] != "/"
+if options[:directory].include? "."
+  if options[:directory].include? "/"
+    location = options[:directory]
+    if options[:directory][-1, 1] != "/"
       location = location + "/"
     end
   else
-    location = ARGV[0] + "/"
-  end
-else
-  if ARGV[1].include? "/"
-    location = ARGV[1]
-    if ARGV[1][-1, 1] != "/"
-      location = location + "/"
-    end
-  else
-    location =  ARGV[1] + "/"
+    location = options[:directory] + "/"
   end
 end
 
 puts "Creating directory structure"
 
-if ARGV[0] == "drupal"
+if options[:project_type] == "drupal"
   if Projectify.create_dir_drupal(location) == true
     puts "Creating drupal directory structure succeeded [" + "SUCCES".green + "]"
   else
     puts "Creation of drupal directory structure failed [" + "ERROR".red + "]"
   end
-elsif ARGV[0] == "capistrano"
+elsif options[:project_type] == "capistrano"
   if Projectify.create_dir_default(location) == true
     puts "Creating default directory structure succeeded [" + "SUCCES".green + "]"
   else
     puts "Creation of default directory structure failed [" + "ERROR".red + "]"
   end
-elsif ARGV[0].include? "."
+elsif options[:project_type].include? "."
   if Projectify.create_dir_drupal(location) == true
     puts "Creating drupal directory structure succeeded [" + "SUCCES".green + "]"
   else
@@ -84,3 +95,39 @@ if Projectify.create_structure(location + "scripts")
  else
   puts "Creating scripts directory... [" + "FAILED".red + "]"
 end
+
+########## Basic Directory Structure ##########
+
+########## Basic File Structure ##########
+
+if Projectify.create_script_directories(location)
+    puts "Creating specific directory structures... [" + "SUCCESS".green + "]"
+else
+    puts "Creating specific directory structures... [" + "FAILED".red + "]"    
+end
+
+if Projectify.create_script_files(location)
+    puts "Creating script files... [" + "SUCCESS".green + "]"
+else
+    puts "Creating script files... [" + "FAILED".red + "]"    
+end
+
+if Projectify.create_varnish_files(location)
+    puts "Creating varnish files... [" + "SUCCESS".green + "]"
+else
+    puts "Creating varnish files... [" + "FAILED".red + "]"    
+end
+
+if Projectify.create_gem_directories(location)
+    puts "Creating gem files... [" + "SUCCESS".green + "]"
+else
+    puts "Creating gem files... [" + "FAILED".red + "]"    
+end
+
+if Projectify.create_npm_directories(location)
+    puts "Creating npm files... [" + "SUCCESS".green + "]"
+else
+    puts "Creating npm files... [" + "FAILED".red + "]"    
+end
+
+##########################################
