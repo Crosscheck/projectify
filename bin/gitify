@@ -11,7 +11,7 @@ namespace_id = 0
 OptionParser.new do |opts|
   opts.banner = "Usage: gitify [options]"
 
-  opts.on("-p", "--project_name=PROJECT_NAME", "Define the project name for your project. If this is empty, \"CrossCheck\" will be used.") do |project_name|
+  opts.on("-n", "--project_name=PROJECT_NAME", "Define the project name for your project. If this is empty, \"CrossCheck\" will be used.") do |project_name|
     options[:project_name] = project_name
   end
   
