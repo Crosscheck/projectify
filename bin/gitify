@@ -11,6 +11,14 @@ namespace_id = 0
 OptionParser.new do |opts|
   opts.banner = "Usage: gitify [options]"
 
+  opts.on("-p", "--project_name=PROJECT_NAME", "Define the project name for your project. If this is empty, \"CrossCheck\" will be used.") do |project_name|
+    options[:project_name] = project_name
+  end
+  
+  opts.on("-d", "--domain=LOCALDOMAIN", "Define the local development domain for this project. If this is empty, local.dev will be used.") do |domain|
+    options[:domain] = domain
+  end
+    
   opts.on("-n", "--namespace=NAMESPACE", "Define the namespace of the repository. if this is empty, no namespace will be used.") do |namespace|
     options[:namespace] = namespace
   end
