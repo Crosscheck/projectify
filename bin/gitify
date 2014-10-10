@@ -4,6 +4,7 @@ require 'fileutils'
 require "net/http"
 require "uri"
 require "json"
+require 'colorize'
 
 options = {}
 namespace_id = 0
