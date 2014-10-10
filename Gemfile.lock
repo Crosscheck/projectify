@@ -1,0 +1,84 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.3.6)
+    breakpoint (2.4.2)
+      sass (~> 3.3.0)
+      sassy-maps (< 1.0.0)
+    capistrano (2.15.5)
+      highline
+      net-scp (>= 1.0.0)
+      net-sftp (>= 2.0.0)
+      net-ssh (>= 2.0.14)
+      net-ssh-gateway (>= 1.1.0)
+    capistrano-didi (0.4.5)
+    ceaser-easing (0.7)
+      compass (>= 0.12.2)
+      rake
+    chunky_png (1.3.0)
+    compass (1.0.0.alpha.19)
+      chunky_png (~> 1.2)
+      compass-core (~> 1.0.0.alpha.19)
+      compass-import-once (~> 1.0.3)
+      json
+      listen (~> 1.1.0)
+      sass (>= 3.3.0, < 3.5)
+    compass-core (1.0.0.alpha.19)
+      multi_json (~> 1.0)
+      sass (>= 3.3.0, < 3.5)
+    compass-h5bp (0.1.2)
+      compass
+    compass-import-once (1.0.4)
+      sass (>= 3.2, < 3.5)
+    compass-rgbapng (0.2.1)
+      chunky_png (>= 0.8.0)
+      compass (>= 0.10.0)
+    css_parser (1.3.5)
+      addressable
+    ffi (1.9.3)
+    highline (1.6.21)
+    json (1.8.1)
+    listen (1.1.6)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9)
+      rb-kqueue (>= 0.2)
+    multi_json (1.9.2)
+    net-scp (1.2.0)
+      net-ssh (>= 2.6.5)
+    net-sftp (2.1.2)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.8.0)
+    net-ssh-gateway (1.2.0)
+      net-ssh (>= 2.6.5)
+    railsless-deploy (1.1.3)
+    rake (10.3.1)
+    rb-fsevent (0.9.4)
+    rb-inotify (0.9.3)
+      ffi (>= 0.5.0)
+    rb-kqueue (0.2.2)
+      ffi (>= 0.5.0)
+    sass (3.3.5)
+    sass-globbing (1.1.1)
+      sass (>= 3.1)
+    sassy-maps (0.3.2)
+      compass (~> 1.0.0.alpha.13)
+      sass (~> 3.3.0.rc.2)
+    susy (2.1.1)
+      sass (~> 3.3.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  breakpoint (~> 2.4.2)
+  capistrano (~> 2.15.0)
+  capistrano-didi (~> 0.4.5)
+  ceaser-easing (~> 0.7)
+  compass (~> 1.0.0.alpha.x)
+  compass-h5bp (~> 0.1)
+  compass-rgbapng
+  css_parser
+  railsless-deploy (~> 1.1.1)
+  sass (~> 3.3.x)
+  sass-globbing
+  susy (~> 2.1.1)
