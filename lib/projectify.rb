@@ -1,5 +1,6 @@
 require 'fileutils'
 require 'net/http'
+require 'openssl'
 require 'uri'
 require 'colorize'
 
