@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="46746bf9-5b02-4ec2-be50-a177fb08c2de" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/projectify.rb" afterPath="$PROJECT_DIR$/lib/projectify.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/projectify.gemspec" afterPath="$PROJECT_DIR$/projectify.gemspec" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/projectify.iml" afterPath="$PROJECT_DIR$/.idea/projectify.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/projectify" afterPath="$PROJECT_DIR$/bin/projectify" />
     </list>
     <ignored path="projectify.iws" />
@@ -38,18 +39,28 @@
       <file leaf-file-name="projectify" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bin/projectify">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2385">
-              <caret line="35" column="16" selection-start-line="35" selection-start-column="7" selection-end-line="35" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1185" max-vertical-offset="2385">
+              <caret line="119" column="48" selection-start-line="119" selection-start-column="48" selection-end-line="119" selection-end-column="48" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="projectify.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="projectify.gemspec" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/projectify.gemspec">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.044955045" vertical-offset="0" max-vertical-offset="1001">
+              <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="projectify.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/projectify.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.60359406" vertical-offset="1889" max-vertical-offset="2835">
-              <caret line="164" column="0" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
+            <state vertical-scroll-proportion="-15.290909" vertical-offset="1229" max-vertical-offset="2835">
+              <caret line="138" column="39" selection-start-line="138" selection-start-column="39" selection-end-line="138" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -68,8 +79,9 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/bin/projectify" />
         <option value="$PROJECT_DIR$/lib/projectify.rb" />
+        <option value="$PROJECT_DIR$/bin/projectify" />
+        <option value="$PROJECT_DIR$/projectify.gemspec" />
       </list>
     </option>
   </component>
@@ -305,18 +317,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bin/projectify">
+    <entry file="file://$PROJECT_DIR$/lib/projectify.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2385">
-          <caret line="35" column="16" selection-start-line="35" selection-start-column="7" selection-end-line="35" selection-end-column="16" />
+        <state vertical-scroll-proportion="-15.290909" vertical-offset="1229" max-vertical-offset="2835">
+          <caret line="138" column="39" selection-start-line="138" selection-start-column="39" selection-end-line="138" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/projectify.rb">
+    <entry file="file://$PROJECT_DIR$/bin/projectify">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.60359406" vertical-offset="1889" max-vertical-offset="2835">
-          <caret line="164" column="0" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1185" max-vertical-offset="2385">
+          <caret line="119" column="48" selection-start-line="119" selection-start-column="48" selection-end-line="119" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projectify.gemspec">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.044955045" vertical-offset="0" max-vertical-offset="1001">
+          <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
           <folding />
         </state>
       </provider>

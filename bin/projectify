@@ -117,7 +117,7 @@ end
 
 ########## Basic File Structure ##########
 
-if Projectify.create_script_directories(location, param)
+if Projectify.create_script_directories(location)
     puts "Creating specific directory structures... [" + "SUCCESS".green + "]"
 else
     puts "Creating specific directory structures... [" + "FAILED".red + "]"    
