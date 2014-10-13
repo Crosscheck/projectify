@@ -70,9 +70,10 @@ class Projectify
 
       return file_name_data
     end
+
     def self.get_data(url,type, parameters)
         if type == 'git'
-            puts url
+            puts "lol" + url
             uri_data = URI.parse('https://raw.githubusercontent.com/Crosscheck/projectify/extra-files/#{url}')
             http_data = Net::HTTP.new(uri_data.host, uri_data.port)
             http_data.use_ssl = true
