@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="46746bf9-5b02-4ec2-be50-a177fb08c2de" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/projectify.gemspec" afterPath="$PROJECT_DIR$/projectify.gemspec" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/projectify.iml" afterPath="$PROJECT_DIR$/.idea/projectify.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/projectify.rb" afterPath="$PROJECT_DIR$/lib/projectify.rb" />
     </list>
@@ -46,21 +45,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="projectify.gemspec" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="projectify.gemspec" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/projectify.gemspec">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.044955045" vertical-offset="0" max-vertical-offset="1001">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
               <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="projectify.rb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="projectify.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/projectify.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.109091" vertical-offset="314" max-vertical-offset="3060">
-              <caret line="47" column="9" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.41331923" vertical-offset="719" max-vertical-offset="3060">
+              <caret line="74" column="20" selection-start-line="74" selection-start-column="20" selection-end-line="74" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -80,8 +79,8 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/bin/projectify" />
-        <option value="$PROJECT_DIR$/lib/projectify.rb" />
         <option value="$PROJECT_DIR$/projectify.gemspec" />
+        <option value="$PROJECT_DIR$/lib/projectify.rb" />
       </list>
     </option>
   </component>
@@ -325,18 +324,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/projectify.rb">
+    <entry file="file://$PROJECT_DIR$/projectify.gemspec">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.109091" vertical-offset="314" max-vertical-offset="3060">
-          <caret line="47" column="9" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
+          <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/projectify.gemspec">
+    <entry file="file://$PROJECT_DIR$/lib/projectify.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.044955045" vertical-offset="0" max-vertical-offset="1001">
-          <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.41331923" vertical-offset="719" max-vertical-offset="3060">
+          <caret line="74" column="20" selection-start-line="74" selection-start-column="20" selection-end-line="74" selection-end-column="20" />
           <folding />
         </state>
       </provider>
