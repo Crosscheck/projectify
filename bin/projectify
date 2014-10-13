@@ -25,6 +25,16 @@ OptionParser.new do |opts|
   end    
 end.parse!
 
+
+options[:site_name] = options[:domain].split('.')[0]
+
+
+########## Parameters container #########
+param={}
+param[:project_name] = options[:project_name]
+param[:site_name] = options[:site_name]
+param[:site_host] = options[:domain]
+
 ########## Option checks ##########
 if options[:directory].length <= 0
     puts "You have to define a directory!".red
@@ -107,34 +117,37 @@ end
 
 ########## Basic File Structure ##########
 
-if Projectify.create_script_directories(location)
+if Projectify.create_script_directories(location, param)
     puts "Creating specific directory structures... [" + "SUCCESS".green + "]"
 else
     puts "Creating specific directory structures... [" + "FAILED".red + "]"    
 end
 
-if Projectify.create_script_files(location)
+if Projectify.create_script_files(location, param)
     puts "Creating script files... [" + "SUCCESS".green + "]"
 else
     puts "Creating script files... [" + "FAILED".red + "]"    
 end
 
-if Projectify.create_varnish_files(location)
+if Projectify.create_varnish_files(location, param)
     puts "Creating varnish files... [" + "SUCCESS".green + "]"
 else
     puts "Creating varnish files... [" + "FAILED".red + "]"    
 end
 
-if Projectify.create_gem_files(location)
+if Projectify.create_gem_files(location, param)
     puts "Creating gem files... [" + "SUCCESS".green + "]"
 else
     puts "Creating gem files... [" + "FAILED".red + "]"    
 end
 
-if Projectify.create_npm_files(location)
+if Projectify.create_npm_files(location, param)
     puts "Creating npm files... [" + "SUCCESS".green + "]"
 else
     puts "Creating npm files... [" + "FAILED".red + "]"    
 end
 
 ##########################################
+
+########### Basic File Editing ###########
+
