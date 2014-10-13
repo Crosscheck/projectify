@@ -35,10 +35,17 @@ class Projectify
 
     def self.exchange_data(file_contents, parameters)
       content_data = ''
+      if file_contents.include? 'PROJECT_NAME'
+        file_contents['PROJECT_NAME'] = parameters[:project_name]
+      end
 
-      file_contents['PROJECT_NAME'] = parameters[:project_name]
-      file_contents['SITE_NAME'] = parameters[:site_name]
-      file_contents['SITE_HOST'] = parameters[:site_host]
+      if file_contents.include? 'SITE_NAME'
+        file_contents['SITE_NAME'] = parameters[:site_name]
+      end
+
+      if file_contents.include? 'SITE_HOST'
+        file_contents['SITE_HOST'] = parameters[:site_host]
+      end
 
       content_data = file_contents
 
@@ -47,9 +54,17 @@ class Projectify
 
     def self.exchange_names(file_name, parameters)
       file_name_data = ''
-      file_name['PROJECT_NAME'] = parameters[:project_name]
-      file_name['SITE_NAME'] = parameters[:site_name]
-      file_name['SITE_HOST'] = parameters[:site_host]
+      if file_name.include? 'PROJECT_NAME'
+        file_name['PROJECT_NAME'] = parameters[:project_name]
+      end
+
+      if file_name.include? 'SITE_NAME'
+        file_name['SITE_NAME'] = parameters[:site_name]
+      end
+
+      if file_name.include? 'SITE_HOST'
+        file_name['SITE_HOST'] = parameters[:site_host]
+      end
 
       file_name_data = file_name
 
