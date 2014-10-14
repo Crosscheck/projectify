@@ -39,11 +39,7 @@ class Projectify
 
 
       if file_contents.include? 'PROJECT_NAME'
-        puts "lul"
         file_contents.gsub!(/PROJECT_NAME/, parameters[:project_name])
-        puts '#########' + file_contents.length.to_s + '#########'
-        puts file_contents
-        puts '###################################################'
       end
 
       if file_contents.include? 'SITE_NAME'
