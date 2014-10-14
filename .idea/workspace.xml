@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="46746bf9-5b02-4ec2-be50-a177fb08c2de" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/gitify" afterPath="$PROJECT_DIR$/bin/gitify" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/projectify.rb" afterPath="$PROJECT_DIR$/lib/projectify.rb" />
     </list>
     <ignored path="projectify.iws" />
@@ -58,8 +57,8 @@
       <file leaf-file-name="projectify.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/projectify.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6293706" vertical-offset="795" max-vertical-offset="3150">
-              <caret line="95" column="33" selection-start-line="95" selection-start-column="33" selection-end-line="95" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.35964036" vertical-offset="555" max-vertical-offset="3165">
+              <caret line="61" column="17" selection-start-line="61" selection-start-column="17" selection-end-line="61" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -370,8 +369,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/projectify.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6293706" vertical-offset="795" max-vertical-offset="3150">
-          <caret line="95" column="33" selection-start-line="95" selection-start-column="33" selection-end-line="95" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.35964036" vertical-offset="555" max-vertical-offset="3165">
+          <caret line="61" column="17" selection-start-line="61" selection-start-column="17" selection-end-line="61" selection-end-column="17" />
           <folding />
         </state>
       </provider>

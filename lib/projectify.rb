@@ -59,6 +59,7 @@ class Projectify
     end
 
     def self.exchange_names(file_name, parameters)
+      puts "name"
       file_name_data = ''
       if file_name.include? 'PROJECT_NAME'
         file_name['PROJECT_NAME'] = parameters[:project_name]
