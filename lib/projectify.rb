@@ -86,14 +86,14 @@ class Projectify
             request_data = Net::HTTP::Get.new(uri_data.request_uri)
             response_data = http_data.request(request_data)
 
-            return exchange_data(response_data.body, parameters)
+            return Projectify.exchange_data(response_data.body, parameters)
         else
             if url.include? 'http:'
                 uri_data = URI.parse(url)
                 http_data = Net::HTTP.new(uri_data.host, uri_data.port)
                 response_data = http_data.request(request_data)
 
-                return exchange_data(response_data.body, parameters)
+                return Projectify.exchange_data(response_data.body, parameters)
             else
                 puts 'Your url must be correctly defined.'
                 exit

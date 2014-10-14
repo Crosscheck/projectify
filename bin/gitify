@@ -109,7 +109,6 @@ if typec.length > 1
 else
     full_direc_typec = "--directory=#{direc}"
 end
-puts "fuck"
 
 output_git_clone = `git clone git@#{options[:gitlab_url]}:#{namespace}#{options[:git]}`
 if $?.success?
