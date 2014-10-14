@@ -30,5 +30,5 @@
 
 $aliases['local'] = array(
   'root' => '/var/www/site/docroot/',
-  'uri' => 'SITE_NAME.local',
+  'uri' => 'SITE_HOST',
 );
