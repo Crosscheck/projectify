@@ -113,6 +113,7 @@ end
 output_git_clone = `git clone git@#{options[:gitlab_url]}:#{namespace}#{options[:git]}`
 if $?.success?
   output_projectify_master = ` cd #{options[:git][0..-5]} && projectify #{full_direc_typec} --project_name=#{options[:project_name]} --host_name=#{options[:domain]} && git add . && git commit -am "Initial structure" && git push origin master`
+  puts output_projectify_master
   branch_arr.each do |branch|
     output_branch = `cd #{options[:git][0..-5]} && git branch #{branch} && git checkout #{branch} && git push origin #{branch}`
   end

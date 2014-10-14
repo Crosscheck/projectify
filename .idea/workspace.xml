@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="46746bf9-5b02-4ec2-be50-a177fb08c2de" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/projectify.rb" afterPath="$PROJECT_DIR$/lib/projectify.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/gitify" afterPath="$PROJECT_DIR$/bin/gitify" />
     </list>
     <ignored path="projectify.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="gitify" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="gitify" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bin/gitify">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-26.615385" vertical-offset="958" max-vertical-offset="1920">
-              <caret line="110" column="3" selection-start-line="110" selection-start-column="3" selection-end-line="110" selection-end-column="3" />
+            <state vertical-scroll-proportion="0.7972973" vertical-offset="958" max-vertical-offset="1935">
+              <caret line="115" column="31" selection-start-line="115" selection-start-column="31" selection-end-line="115" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -37,8 +37,8 @@
       <file leaf-file-name="projectify" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bin/projectify">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.0" vertical-offset="1410" max-vertical-offset="2385">
-              <caret line="120" column="25" selection-start-line="120" selection-start-column="24" selection-end-line="120" selection-end-column="25" />
+            <state vertical-scroll-proportion="-61.73077" vertical-offset="90" max-vertical-offset="2385">
+              <caret line="113" column="3" selection-start-line="113" selection-start-column="3" selection-end-line="113" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -54,11 +54,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="projectify.rb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="projectify.rb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/projectify.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35964036" vertical-offset="555" max-vertical-offset="3165">
-              <caret line="61" column="17" selection-start-line="61" selection-start-column="17" selection-end-line="61" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1234" max-vertical-offset="3165">
+              <caret line="102" column="7" selection-start-line="102" selection-start-column="7" selection-end-line="102" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -79,8 +79,8 @@
       <list>
         <option value="$PROJECT_DIR$/bin/projectify" />
         <option value="$PROJECT_DIR$/projectify.gemspec" />
-        <option value="$PROJECT_DIR$/bin/gitify" />
         <option value="$PROJECT_DIR$/lib/projectify.rb" />
+        <option value="$PROJECT_DIR$/bin/gitify" />
       </list>
     </option>
   </component>
@@ -351,26 +351,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bin/gitify">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-26.615385" vertical-offset="958" max-vertical-offset="1920">
-          <caret line="110" column="3" selection-start-line="110" selection-start-column="3" selection-end-line="110" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bin/projectify">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.0" vertical-offset="1410" max-vertical-offset="2385">
-          <caret line="120" column="25" selection-start-line="120" selection-start-column="24" selection-end-line="120" selection-end-column="25" />
+        <state vertical-scroll-proportion="-61.73077" vertical-offset="90" max-vertical-offset="2385">
+          <caret line="113" column="3" selection-start-line="113" selection-start-column="3" selection-end-line="113" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/projectify.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35964036" vertical-offset="555" max-vertical-offset="3165">
-          <caret line="61" column="17" selection-start-line="61" selection-start-column="17" selection-end-line="61" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1234" max-vertical-offset="3165">
+          <caret line="102" column="7" selection-start-line="102" selection-start-column="7" selection-end-line="102" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/gitify">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7972973" vertical-offset="958" max-vertical-offset="1935">
+          <caret line="115" column="31" selection-start-line="115" selection-start-column="31" selection-end-line="115" selection-end-column="31" />
           <folding />
         </state>
       </provider>
