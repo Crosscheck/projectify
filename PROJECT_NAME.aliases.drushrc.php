@@ -28,7 +28,15 @@
  *
  */
 
+#$aliases['local'] = array(
+#  'root' => '/var/www/site/docroot/',
+#  'uri' => 'SITE_HOST',
+#);
+
 $aliases['local'] = array(
-  'root' => '/var/www/site/docroot/',
+  'parent' => '@parent',
+  'site' => 'SITE_NAME',
+  'env' => 'local',
+  'root' => '/path/to/local/site/docroot',
   'uri' => 'SITE_HOST',
 );
