@@ -36,15 +36,15 @@ class Projectify
     def self.exchange_data(file_contents, parameters)
       content_data = ''
       if file_contents.include? 'PROJECT_NAME'
-        file_contents.gsub('PROJECT_NAME', parameters[:project_name])
+        file_contents.gsub(/PROJECT_NAME/, parameters[:project_name])
       end
 
       if file_contents.include? 'SITE_NAME'
-        file_contents.gsub('SITE_NAME', parameters[:site_name])
+        file_contents.gsub(/SITE_NAME/, parameters[:site_name])
       end
 
       if file_contents.include? 'SITE_HOST'
-        file_contents.gsub('SITE_HOST',parameters[:site_host])
+        file_contents.gsub(/SITE_HOST/,parameters[:site_host])
       end
 
       content_data = file_contents
