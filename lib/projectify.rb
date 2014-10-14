@@ -42,15 +42,15 @@ class Projectify
 
       if file_contents.include? 'PROJECT_NAME'
         puts "lul"
-        file_contents.gsub(/PROJECT_NAME/, parameters[:project_name])
+        file_contents.gsub("/PROJECT_NAME/", parameters[:project_name])
       end
 
       if file_contents.include? 'SITE_NAME'
-        file_contents.gsub(/SITE_NAME/, parameters[:site_name])
+        file_contents.gsub("/SITE_NAME/", parameters[:site_name])
       end
 
       if file_contents.include? 'SITE_HOST'
-        file_contents.gsub(/SITE_HOST/,parameters[:site_host])
+        file_contents.gsub("/SITE_HOST/",parameters[:site_host])
       end
 
       content_data = file_contents
@@ -59,7 +59,6 @@ class Projectify
     end
 
     def self.exchange_names(file_name, parameters)
-      puts "name"
       file_name_data = ''
       if file_name.include? 'PROJECT_NAME'
         file_name['PROJECT_NAME'] = parameters[:project_name]
