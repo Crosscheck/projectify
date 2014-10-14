@@ -35,10 +35,10 @@ class Projectify
 
     def self.exchange_data(file_contents, parameters)
       content_data = ''
-      if file_contents.length < 5
-        puts "this file sucks."
-        puts file_contents
-      end
+      puts '#########' + file_contents.length.to_s + '#########'
+      puts file_contents
+      puts '###################################################'
+
 
       if file_contents.include? 'PROJECT_NAME'
         puts "lul"
