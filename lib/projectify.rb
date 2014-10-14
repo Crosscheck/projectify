@@ -35,14 +35,15 @@ class Projectify
 
     def self.exchange_data(file_contents, parameters)
       content_data = ''
-      puts '#########' + file_contents.length.to_s + '#########'
-      puts file_contents
-      puts '###################################################'
+
 
 
       if file_contents.include? 'PROJECT_NAME'
         puts "lul"
         file_contents.gsub("/PROJECT_NAME/", parameters[:project_name])
+        puts '#########' + file_contents.length.to_s + '#########'
+        puts file_contents
+        puts '###################################################'
       end
 
       if file_contents.include? 'SITE_NAME'
@@ -52,6 +53,8 @@ class Projectify
       if file_contents.include? 'SITE_HOST'
         file_contents.gsub("/SITE_HOST/",parameters[:site_host])
       end
+
+
 
       content_data = file_contents
 
