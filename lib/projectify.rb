@@ -35,6 +35,11 @@ class Projectify
 
     def self.exchange_data(file_contents, parameters)
       content_data = ''
+      if file_contents.length < 5
+        puts "this file sucks."
+        puts file_contents
+      end
+
       if file_contents.include? 'PROJECT_NAME'
         puts "lul"
         file_contents.gsub(/PROJECT_NAME/, parameters[:project_name])
