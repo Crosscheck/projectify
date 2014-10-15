@@ -24,9 +24,9 @@ OptionParser.new do |opts|
     options[:namespace] = namespace
   end
 
-  opts.on("-g", "--git=REPOSITORY", "Define the repository.git | Example: --git=test.git") do |git|
-    options[:git] = git
-  end
+  #opts.on("-g", "--git=REPOSITORY", "Define the repository.git | Example: --git=test.git") do |git|
+  #  options[:git] = git
+  #end
 
   opts.on("-a", "--all", "Provision all branches. (Staging, Acc, Production, Master)") do |all|
         options[:all] = all
@@ -77,12 +77,18 @@ groups_json.each do |item|
   end
 end
 
+if namespace_id == 0
+  puts "Namespace has not been found on the git-server!".red
+  abort()
+end
+
 puts "Creating repository..."
 uri_repo = URI.parse("http://#{options[:gitlab_url]}/api/v3/projects?private_token=#{options[:token]}")
 http_repo = Net::HTTP.new(uri_repo.host, uri_repo.port)
 request_repo = Net::HTTP::Post.new(uri_repo.request_uri)
 request_repo.set_form_data({
-                        "name"  =>  options[:git][0..-5],
+                        #"name"  =>  options[:git][0..-5],
+                        "name"  =>  options[:project_name],
                         "namespace_id"  =>  namespace_id
                       })
 response_repo = http_repo.request(request_repo)
@@ -91,11 +97,9 @@ namespace = options.has_key?(:namespace) ? options[:namespace] + "/" : ""
 
 
 if options.has_key?(:type) && options.has_key?(:dir)
-  #command = options.values_at(:type, :dir).join(" ")
     direc = options[:dir]
     typec = options[:type]
 elsif options.has_key?(:dir)
-  #command = options[:dir]
     direc = options[:dir]
     typec = ""
 else
@@ -110,15 +114,16 @@ else
     full_direc_typec = "--directory=#{direc}"
 end
 
-output_git_clone = `git clone git@#{options[:gitlab_url]}:#{namespace}#{options[:git]}`
+#output_git_clone = `git clone git@#{options[:gitlab_url]}:#{namespace}#{options[:git]}`
+output_git_clone = `git clone git@#{options[:gitlab_url]}:#{namespace}#{options[:project_name]}`
 if $?.success?
-  output_projectify_master = `cd #{options[:git][0..-5]} && projectify #{full_direc_typec} --project_name=#{options[:project_name]} --host_name=#{options[:domain]}`
+  output_projectify_master = `cd #{options[:project_name]} && projectify #{full_direc_typec} --project_name=#{options[:project_name]} --host_name=#{options[:domain]}`
   puts output_projectify_master
-  output_commit_master = `cd #{options[:git][0..-5]} && git add . && git commit -am "Initial structure" && git push origin master`
+  output_commit_master = `cd #{options[:project_name]} && git add . && git commit -am "Initial structure" && git push origin master`
   branch_arr.each do |branch|
-    output_branch = `cd #{options[:git][0..-5]} && git branch #{branch} && git checkout #{branch} && git push origin #{branch}`
+    output_branch = `cd #{options[:project_name]} && git branch #{branch} && git checkout #{branch} && git push origin #{branch}`
   end
-  FileUtils.rm_rf(options[:git])
+  FileUtils.rm_rf(options[:project_name])
 else
   puts "Something went horribly wrong."
 end
