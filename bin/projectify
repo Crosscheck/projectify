@@ -5,6 +5,13 @@ require 'colorize'
 
 options = {}
 
+
+###################
+#
+# We will parse all possible options in the following block of code
+#
+###################
+
 OptionParser.new do |opts|
   opts.banner = "Usage: projectify [options]"
 
@@ -30,6 +37,10 @@ options[:site_name] = options[:domain].split('.')[0]
 
 
 ########## Parameters container #########
+#
+# We build our parameters container here.
+#
+########################################
 param={}
 param[:project_name] = options[:project_name]
 param[:site_name] = options[:site_name]
@@ -44,9 +55,14 @@ end
 if options[:project_name].length <= 1
     puts "You have to define a project name!".red
 end
-########## Option checks ##########
+########## END Option checks ##########
 
 ########## Basic directory structure ##########
+#
+# In the following block of code we will try to create all necessary directories
+# this will use different functions from the Projectify class (projectify.rb)
+#
+###############################################
 location = ""
 
 if options[:directory].include? "."
@@ -113,9 +129,14 @@ if Projectify.create_structure(location + "scripts")
   puts "Creating scripts directory... [" + "FAILED".red + "]"
 end
 
-########## Basic Directory Structure ##########
+########## END Basic Directory Structure ##########
 
 ########## Basic File Structure ##########
+#
+# In the following block of code we will try to create all necessary files in their seperate directories
+# this will use different functions from the Projectify class (projectify.rb)
+#
+###############################################
 
 if Projectify.create_script_directories(location)
     puts "Creating specific directory structures... [" + "SUCCESS".green + "]"

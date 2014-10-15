@@ -13,5 +13,9 @@ Gem::Specification.new do |s|
     'http://github.com/CrossCheck/projectify'
   s.license       = 'MIT'
   s.add_dependency 'colorize'
+  s.add_dependency 'optparse'
+  s.add_dependency 'net/http'
+  s.add_dependency 'uri'
+  s.add_dependency 'json'
 
 end

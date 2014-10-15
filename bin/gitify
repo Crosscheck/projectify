@@ -9,6 +9,12 @@ require 'colorize'
 options = {}
 namespace_id = 0
 
+###################
+#
+# We will parse all possible options in the following block of code
+#
+###################
+
 OptionParser.new do |opts|
   opts.banner = "Usage: gitify [options]"
 
@@ -53,6 +59,15 @@ OptionParser.new do |opts|
   end
 end.parse!
 
+
+###################
+#
+# The following small piece of code will check what branches the user chose.
+#
+# If it's -a then all standard branches will be created
+# Otherwise it will create the one that have been chosen by the user.
+#
+###################
 branch_arr = []
 
 if options[:all]
@@ -62,6 +77,15 @@ elsif options[:branches].length > 0
 else
   puts "No branches defined. Will only provision master branch."
 end
+
+###################
+#
+# The following two requests will allow us to communicate with the gitlab server API
+# The first will try to get the ID of the namespace that we specified in the parameters. If this ID cannot be found, we will abort gitify.
+#
+# The second request will create a repository (through the API of gitlab) based on the specified options.
+#
+###################
 
 puts "Getting namespace ID..."
 uri_groups = URI.parse("http://#{options[:gitlab_url]}/api/v3/groups?private_token=#{options[:token]}")
@@ -95,7 +119,12 @@ response_repo = http_repo.request(request_repo)
 
 namespace = options.has_key?(:namespace) ? options[:namespace] + "/" : ""
 
-
+###################
+#
+# The following piece of code will do some rudimentary checks on the specified directory format
+# It will edit the parameter if it's malformed.
+#
+###################
 if options.has_key?(:type) && options.has_key?(:dir)
     direc = options[:dir]
     typec = options[:type]
@@ -113,6 +142,14 @@ if typec.length > 1
 else
     full_direc_typec = "--directory=#{direc}"
 end
+
+###################
+#
+# This last piece of code will clone the repository
+# - Create the master branch and put all files in it
+# - Create all other branches and push them to the repository server.
+#
+###################
 
 #output_git_clone = `git clone git@#{options[:gitlab_url]}:#{namespace}#{options[:git]}`
 output_git_clone = `git clone git@#{options[:gitlab_url]}:#{namespace}#{options[:project_name]}`
