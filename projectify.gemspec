@@ -1,7 +1,7 @@
 require 'colorize'
 Gem::Specification.new do |s|
   s.name        = 'projectify'
-  s.version     = '0.9.7'
+  s.version     = '0.9.8'
   s.date        = '2014-08-28'
   s.summary     = "Projectify your setup!"
   s.description = "A small gem that creates a basic structure for a development project with drupal or capistrano in general."
