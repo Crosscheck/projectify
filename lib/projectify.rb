@@ -223,7 +223,7 @@ class Projectify
       #
       ###################
         if Dir.exist? directory + 'varnish'
-            varnish_file = File.new(directory + 'varnish/' + self.exchange_names('example.vcl', parameters), 'w')
+            varnish_file = File.new(directory + 'varnish/' + self.exchange_names('EXAMPLE.vcl', parameters), 'w')
             varnish_file.puts(get_data('example.vcl', 'git', parameters))
             varnish_file.close
 
@@ -281,5 +281,11 @@ class Projectify
 
             return false
         end
+    end
+
+    def self.clone_vagrant(directory, url)
+      if Dir.exist? directory
+        system("cd #{directory};git clone #{url} .")
+      end
     end
 end
