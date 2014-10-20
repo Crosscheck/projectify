@@ -290,6 +290,7 @@ class Projectify
           puts 'Success'.green
         else
           puts 'Error'.red
+          puts output_vagrant
         end
       end
     end
