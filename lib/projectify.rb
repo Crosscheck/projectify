@@ -286,10 +286,11 @@ class Projectify
     def self.create_vagrant_files(directory, parameters, url)
       if Dir.exist? directory
         begin
-          system("cd #{directory}/vagrant/; git clone #{url} .")
-            puts "Success".green
+          puts "cd #{directory}/vagrant/; git clone #{url} ."
+          output_vagrant = `cd #{directory}/vagrant/; git clone #{url} .`
+          puts 'Success'.green
         rescue  Exception=>e
-          puts "Error".red
+          puts 'Error'.red
         end
 
       end
