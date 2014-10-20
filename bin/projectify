@@ -110,12 +110,13 @@ else
     end  
 end
 
-if Projectify.create_structure(location + "vagrant")
-  puts "Creating vagrant directory... [" + "SUCCESS".green + "]"
- else
-  puts "Creating vagrant directory... [" + "FAILED".red + "]"
+if !options.has_key? (:vagrant)
+  if Projectify.create_structure(location + "vagrant")
+    puts "Creating vagrant directory... [" + "SUCCESS".green + "]"
+   else
+    puts "Creating vagrant directory... [" + "FAILED".red + "]"
+  end
 end
-
 if Projectify.create_structure(location + "docroot")
   puts "Creating docroot directory... [" + "SUCCESS".green + "]"
  else
@@ -172,11 +173,12 @@ if Projectify.create_npm_files(location, param)
 else
     puts "Creating npm files... [" + "FAILED".red + "]"    
 end
-
-if Projectify.create_vagrant_files(location, param, options[:vagrant])
-  puts "Creating vagrant files... [" + "SUCCESS".green + "]"
-else
-  puts "Creating vagrant files... [" + "FAILED".red + "]"
+if options.has_key? (:vagrant)
+  if Projectify.create_vagrant_files(location, param, options[:vagrant])
+    puts "Creating vagrant files... [" + "SUCCESS".green + "]"
+  else
+    puts "Creating vagrant files... [" + "FAILED".red + "]"
+  end
 end
 
 ##########################################
