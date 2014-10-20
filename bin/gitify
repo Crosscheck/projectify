@@ -57,6 +57,10 @@ OptionParser.new do |opts|
   opts.on("-u", "--gitlab_domain=DOMAIN", "The url to your gitlab installation") do |url|
     options[:gitlab_url] = url
   end
+
+  opts.on("-v", "--vagrant_url=VAGRANT_URL", "Define the URL for a vagrant package (.tar.gz).") do |vagrant_url|
+    options[:vagrant_url] = vagrant_url
+  end
 end.parse!
 
 
@@ -154,7 +158,7 @@ end
 #output_git_clone = `git clone git@#{options[:gitlab_url]}:#{namespace}#{options[:git]}`
 output_git_clone = `git clone git@#{options[:gitlab_url]}:#{namespace}#{options[:project_name]}`
 if $?.success?
-  output_projectify_master = `cd #{options[:project_name]} && projectify #{full_direc_typec} --project_name=#{options[:project_name]} --host_name=#{options[:domain]}`
+  output_projectify_master = `cd #{options[:project_name]} && projectify #{full_direc_typec} --project_name=#{options[:project_name]} --host_name=#{options[:domain]} -v #{options[:vagrant_url]}`
   puts output_projectify_master
   output_commit_master = `cd #{options[:project_name]} && git add . && git commit -am "Initial structure" && git push origin master`
   branch_arr.each do |branch|
