@@ -285,6 +285,7 @@ class Projectify
 
     def self.create_vagrant_files(directory, parameters, url)
       if Dir.exist? directory
+        puts "cd #{directory}; rm -rf vagrant/readme.md; git submodule add #{url} vagrant"
         output_vagrant = `cd #{directory}; rm -rf vagrant/readme.md; git submodule add #{url} vagrant`
         if $?.success?
           puts 'Success'.green
