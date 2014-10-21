@@ -31,7 +31,7 @@ OptionParser.new do |opts|
     options[:domain] = domain
   end
 
-  opts.on("-v", "--vagrant_url=URL", "Define the URL for a vagrant repository.") do |vagrant|
+  opts.on("-r", "--vagrant_url=URL", "Define the URL for a vagrant repository.") do |vagrant|
     options[:vagrant] = vagrant
   end
 
