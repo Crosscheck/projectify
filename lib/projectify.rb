@@ -314,6 +314,8 @@ class Projectify
     def create_vagrant_files(directory, parameters, url)
       if Dir.exist? directory
         output_vagrant = `cd #{directory}; git submodule add #{url} vagrant`
+        @logs.Debug("cd #{directory}; git submodule add #{url} vagrant")
+        @logs.Debug(output_vagrant)
         if $?.success?
           puts 'Success'.green
         else
