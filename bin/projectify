@@ -169,19 +169,12 @@ if projectify.create_npm_files(location, param)
 else
     puts "Creating npm files... [" + "FAILED".red + "]"    
 end
-if options.has_key? (:vagrant)
-  if projectify.create_vagrant_files(location, param, options[:vagrant])
+if projectify.create_vagrant_files(location, param, options[:vagrant])
     puts "Creating vagrant files... [" + "SUCCESS".green + "]"
   else
     puts "Creating vagrant files... [" + "FAILED".red + "]"
-  end
-else
-  if projectify.create_structure(location + "vagrant")
-    puts "Creating vagrant directory... [" + "SUCCESS".green + "]"
-  else
-    puts "Creating vagrant directory... [" + "FAILED".red + "]"
-  end
 end
+
 
 ##########################################
 logs.Debug("cd " + location + ";drush make scripts/" + param[:project_name] + ".make docroot")

@@ -209,6 +209,10 @@ class Projectify
             script_file.puts(get_data('setup.sh', 'git', parameters))
             script_file.close
 
+            gitignore_file = File.new(directory  + self.exchange_names('.gitignore', parameters), 'w')
+            gitignore_file.puts(get_data('.gitignore', 'git', parameters))
+            gitignore_file.close
+
             sync_file = File.new(directory + 'scripts/' + self.exchange_names('sync.sh', parameters), 'w')
             sync_file.puts(get_data('sync.sh', 'git', parameters))
             sync_file.close
