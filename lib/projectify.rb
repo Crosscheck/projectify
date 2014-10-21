@@ -3,8 +3,13 @@ require 'net/http'
 require 'openssl'
 require 'uri'
 require 'colorize'
+require 'logging'
 
 class Projectify
+  def initialize(debug_value)
+    debugs = debug_value
+    @logs = Logging.new(debugs)
+  end
   def self.create_dir_drupal(directory)
     ###################
     #
@@ -64,7 +69,6 @@ class Projectify
       #
       ###################
       content_data = ''
-
       if file_contents.include? 'PROJECT_NAME'
         file_contents.gsub!(/PROJECT_NAME/, parameters[:project_name])
       end
@@ -110,6 +114,8 @@ class Projectify
     end
 
     def self.download_data(url, directory, filename)
+      @logs.Debug(url)
+      @logs.Debug(filename)
       f = open(directory + filename)
       uri_data = URI.parse(url)
       http_data = Net::HTTP.new(uri_data.host, uri_data.port)
@@ -122,7 +128,7 @@ class Projectify
         end
       ensure
         f.close()
-        puts "Downloaded latest drupal release.".green
+        puts 'Downloaded latest drupal release.'.green
         return true
       end
     end
@@ -146,14 +152,14 @@ class Projectify
             request_data = Net::HTTP::Get.new(uri_data.request_uri)
             response_data = http_data.request(request_data)
 
-            return Projectify.exchange_data(response_data.body, parameters)
+            return self.exchange_data(response_data.body, parameters)
         else
             if url.include? 'http:'
                 uri_data = URI.parse(url)
                 http_data = Net::HTTP.new(uri_data.host, uri_data.port)
                 response_data = http_data.request(request_data)
 
-                return Projectify.exchange_data(response_data.body, parameters)
+                return self.exchange_data(response_data.body, parameters)
             else
                 puts 'Your url must be correctly defined.'
                 exit

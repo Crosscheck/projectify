@@ -40,9 +40,12 @@ OptionParser.new do |opts|
     options[:drupal_url] = drupal_url
   end
 
+  opts.on("-v", "--debugging=TRUE/FALSE", "Define debugging true or false.") do |debug_value|
+    options[:debug_value] = debug_value
+  end
 end.parse!
 
-
+projectify = Projectify.new(options[:debug_value])
 options[:site_name] = options[:domain].split('.')[0]
 
 
@@ -89,26 +92,26 @@ end
 puts "Creating directory structure"
 if options.has_key?(:project_type)
     if options[:project_type] == "drupal"
-      if Projectify.create_dir_drupal(location) == true
+      if projectify.create_dir_drupal(location) == true
         puts "Creating drupal directory structure succeeded [" + "SUCCES".green + "]"
       else
         puts "Creation of drupal directory structure failed [" + "ERROR".red + "]"
       end
     elsif options[:project_type] == "capistrano"
-      if Projectify.create_dir_default(location) == true
+      if projectify.create_dir_default(location) == true
         puts "Creating default directory structure succeeded [" + "SUCCES".green + "]"
       else
         puts "Creation of default directory structure failed [" + "ERROR".red + "]"
       end
     else
-      if Projectify.create_dir_drupal(location) == true
+      if projectify.create_dir_drupal(location) == true
         puts "Creating drupal directory structure succeeded [" + "SUCCES".green + "]"
       else
         puts "Creation of drupal directory structure failed [" + "ERROR".red + "]"
       end
     end
 else
-    if Projectify.create_dir_drupal(location) == true
+    if projectify.create_dir_drupal(location) == true
         puts "Creating drupal directory structure succeeded [" + "SUCCES".green + "]"
     else
         puts "Creation of drupal directory structure failed [" + "ERROR".red + "]"
@@ -116,25 +119,25 @@ else
 end
 
 if !options.has_key? (:vagrant)
-  if Projectify.create_structure(location + "vagrant")
+  if projectify.create_structure(location + "vagrant")
     puts "Creating vagrant directory... [" + "SUCCESS".green + "]"
    else
     puts "Creating vagrant directory... [" + "FAILED".red + "]"
   end
 end
-if Projectify.create_structure(location + "docroot")
+if projectify.create_structure(location + "docroot")
   puts "Creating docroot directory... [" + "SUCCESS".green + "]"
  else
   puts "Creating docroot directory... [" + "FAILED".red + "]"
 end
 
-if Projectify.create_structure(location + "node_modules")
+if projectify.create_structure(location + "node_modules")
   puts "Creating node_modules directory... [" + "SUCCESS".green + "]"
  else
   puts "Creating node_modules directory... [" + "FAILED".red + "]"
 end
 
-if Projectify.create_structure(location + "scripts")
+if projectify.create_structure(location + "scripts")
   puts "Creating scripts directory... [" + "SUCCESS".green + "]"
  else
   puts "Creating scripts directory... [" + "FAILED".red + "]"
@@ -149,37 +152,37 @@ end
 #
 ###############################################
 
-if Projectify.create_script_directories(location)
+if projectify.create_script_directories(location)
     puts "Creating specific directory structures... [" + "SUCCESS".green + "]"
 else
     puts "Creating specific directory structures... [" + "FAILED".red + "]"    
 end
 
-if Projectify.create_script_files(location, param)
+if projectify.create_script_files(location, param)
     puts "Creating script files... [" + "SUCCESS".green + "]"
 else
     puts "Creating script files... [" + "FAILED".red + "]"    
 end
 
-if Projectify.create_varnish_files(location, param)
+if projectify.create_varnish_files(location, param)
     puts "Creating varnish files... [" + "SUCCESS".green + "]"
 else
     puts "Creating varnish files... [" + "FAILED".red + "]"    
 end
 
-if Projectify.create_gem_files(location, param)
+if projectify.create_gem_files(location, param)
     puts "Creating gem files... [" + "SUCCESS".green + "]"
 else
     puts "Creating gem files... [" + "FAILED".red + "]"    
 end
 
-if Projectify.create_npm_files(location, param)
+if projectify.create_npm_files(location, param)
     puts "Creating npm files... [" + "SUCCESS".green + "]"
 else
     puts "Creating npm files... [" + "FAILED".red + "]"    
 end
 if options.has_key? (:vagrant)
-  if Projectify.create_vagrant_files(location, param, options[:vagrant])
+  if projectify.create_vagrant_files(location, param, options[:vagrant])
     puts "Creating vagrant files... [" + "SUCCESS".green + "]"
   else
     puts "Creating vagrant files... [" + "FAILED".red + "]"
@@ -192,7 +195,7 @@ if options.has_key?(:drupal_url)
   url_arr = options[:drupal_url].split('/')
   puts url_arr
   puts url_arr.length
-  if Projectify.download_data(options[:drupal_url], location + 'docroot', url_arr[url_arr.length - 1])
+  if projectify.download_data(options[:drupal_url], location + 'docroot', url_arr[url_arr.length - 1])
     puts "Download succeeded.".green
   else
     puts "Download failed.".red
