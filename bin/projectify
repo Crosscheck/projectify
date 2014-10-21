@@ -185,8 +185,8 @@ if options.has_key? (:vagrant)
 end
 
 ##########################################
-
-system("cd " + location + ";drush make scripts/" + param[:project_name] + ".make")
+logs.Debug("cd " + location + ";drush make scripts/" + param[:project_name] + ".make docroot")
+system("cd " + location + ";drush make scripts/" + param[:project_name] + ".make docroot")
 if $?.success?
   logs.Success("Drush make succeeded")
 else
