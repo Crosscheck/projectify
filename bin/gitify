@@ -58,7 +58,7 @@ OptionParser.new do |opts|
     options[:gitlab_url] = url
   end
 
-  opts.on("-v", "--vagrant_url=VAGRANT_URL", "Define the URL for a vagrant repository.") do |vagrant_url|
+  opts.on("-r", "--vagrant_url=VAGRANT_URL", "Define the URL for a vagrant repository.") do |vagrant_url|
     options[:vagrant_url] = vagrant_url
   end
 
