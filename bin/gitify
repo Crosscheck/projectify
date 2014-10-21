@@ -61,6 +61,10 @@ OptionParser.new do |opts|
   opts.on("-v", "--vagrant_url=VAGRANT_URL", "Define the URL for a vagrant repository.") do |vagrant_url|
     options[:vagrant_url] = vagrant_url
   end
+
+  opts.on("-l", "--drupal_url=DRUPAL_URL", "Define the URL for the latest drupal release.") do |drupal_url|
+    options[:vagrant_url] = vagrant_url
+  end
 end.parse!
 
 

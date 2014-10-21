@@ -35,6 +35,11 @@ OptionParser.new do |opts|
     options[:vagrant] = vagrant
   end
 
+
+  opts.on("-l", "--drupal_url=DRUPAL_URL", "Define the URl for the latest drupal release.") do |drupal_url|
+    options[:drupal_url] = drupal_url
+  end
+
 end.parse!
 
 
@@ -183,4 +188,12 @@ end
 
 ##########################################
 
+if options.has_key?(:drupal_url)
+  url_arr = options[:drupal_url].split('/')
 
+  if Projectify.download_data(options[:drupal_url], location + 'docroot', url_arr[url_arr.length - 1])
+    puts "Download succeeded.".green
+  else
+    puts "Download failed.".red
+  end
+end

@@ -109,6 +109,24 @@ class Projectify
       return file_name_data
     end
 
+    def self.download_data(url, directory, filename)
+      f = open(directory + filename)
+      uri_data = URI.parse(url)
+      http_data = Net::HTTP.new(uri_data.host, uri_data.port)
+      request_data = Net::HTTP::Get.new(uri_data.request_uri)
+      begin
+        http_data.request_get(request_data) do |resp|
+          resp.read_body do |segment|
+            f.write(segment)
+          end
+        end
+      ensure
+        f.close()
+        puts "Downloaded latest drupal release.".green
+        return true
+      end
+    end
+
     def self.get_data(url,type, parameters)
       ###################
       #
