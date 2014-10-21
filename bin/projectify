@@ -120,11 +120,11 @@ if !options.has_key? (:vagrant)
     puts "Creating vagrant directory... [" + "FAILED".red + "]"
   end
 end
-if projectify.create_structure(location + "docroot")
-  puts "Creating docroot directory... [" + "SUCCESS".green + "]"
- else
-  puts "Creating docroot directory... [" + "FAILED".red + "]"
-end
+#if projectify.create_structure(location + "docroot")
+#  puts "Creating docroot directory... [" + "SUCCESS".green + "]"
+# else
+#  puts "Creating docroot directory... [" + "FAILED".red + "]"
+#end
 
 if projectify.create_structure(location + "node_modules")
   puts "Creating node_modules directory... [" + "SUCCESS".green + "]"
