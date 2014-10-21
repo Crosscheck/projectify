@@ -7,8 +7,7 @@ Gem::Specification.new do |s|
   s.description = 'A small gem that creates a basic structure for a development project with drupal or capistrano in general.'
   s.authors     = ['Sebastiaan Provost']
   s.email       = 'seba@crosscheck.be'
-  s.files       = ['lib/projectify.rb']
-  s.files       = ['lib/logging.rb']
+  s.files       = ['lib/logging.rb', 'lib/projectify.rb']
   s.executables = ['projectify', 'gitify']
   s.homepage    =
     'http://github.com/CrossCheck/projectify'
