@@ -128,7 +128,7 @@ class Projectify
         end
       ensure
         f.close()
-        puts 'Downloaded latest drupal release.'.green
+        puts 'Downloaded file successfully.'.green
         return true
       end
     end

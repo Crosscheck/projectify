@@ -2,9 +2,9 @@
 require 'optparse'
 require 'projectify'
 require 'colorize'
-
+require 'logging'
 options = {}
-
+logs = Logging.new(true)
 
 ###################
 #
@@ -33,11 +33,6 @@ OptionParser.new do |opts|
 
   opts.on("-v", "--vagrant_url=URL", "Define the URL for a vagrant repository.") do |vagrant|
     options[:vagrant] = vagrant
-  end
-
-
-  opts.on("-l", "--drupal_url=DRUPAL_URL", "Define the URl for the latest drupal release.") do |drupal_url|
-    options[:drupal_url] = drupal_url
   end
 
   opts.on("-v", "--debugging=TRUE/FALSE", "Define debugging true or false.") do |debug_value|
@@ -191,13 +186,9 @@ end
 
 ##########################################
 
-if options.has_key?(:drupal_url)
-  url_arr = options[:drupal_url].split('/')
-  puts url_arr
-  puts url_arr.length
-  if projectify.download_data(options[:drupal_url], location + 'docroot', url_arr[url_arr.length - 1])
-    puts "Download succeeded.".green
-  else
-    puts "Download failed.".red
-  end
+system("cd " + location + ";drush make scripts/" + param[:project_name] + ".make")
+if $?.success?
+  logs.Success("Drush make succeeded")
+else
+  logs.Error("Drush make failed")
 end
