@@ -10,7 +10,7 @@ class Projectify
     debugs = debug_value
     @logs = Logging.new(debugs)
   end
-  def self.create_dir_drupal(directory)
+  def create_dir_drupal(directory)
     ###################
     #
     # This function "didify's" a directory so it can be used to deploy a drupal installation with capistrano
@@ -27,7 +27,7 @@ class Projectify
     end
   end
 
-  def self.create_dir_default(directory)
+  def create_dir_default(directory)
     ###################
     #
     # This function "capifies" a directory so it can be used to deploy a drupal installation with capistrano
@@ -43,7 +43,7 @@ class Projectify
     end
   end
 
-  def self.create_structure(value)
+  def create_structure(value)
     ###################
     #
     # This function allows you to add a directory to your repository
@@ -59,7 +59,7 @@ class Projectify
     end
   end
 
-    def self.exchange_data(file_contents, parameters)
+    def exchange_data(file_contents, parameters)
       ###################
       #
       # This function filters the incoming file_contents data and replaces token names with the values that you can find in the parameters hash.
@@ -86,7 +86,7 @@ class Projectify
       return content_data
     end
 
-    def self.exchange_names(file_name, parameters)
+    def exchange_names(file_name, parameters)
       ###################
       #
       # This function filters the incoming file_name and replaces token names with the values that you can find in the parameters hash.
@@ -113,7 +113,7 @@ class Projectify
       return file_name_data
     end
 
-    def self.download_data(url, directory, filename)
+    def download_data(url, directory, filename)
       @logs.Debug(url)
       @logs.Debug(filename)
       f = open(directory + filename)
@@ -133,7 +133,7 @@ class Projectify
       end
     end
 
-    def self.get_data(url,type, parameters)
+    def get_data(url,type, parameters)
       ###################
       #
       # This function will retrieve the extra files from a given repository (hardcoded for now)
@@ -168,7 +168,7 @@ class Projectify
     end
 
 
-    def self.create_script_directories(directory)
+    def create_script_directories(directory)
       ###################
       #
       # This function will create the necessary base directories for the extra files.
@@ -195,7 +195,7 @@ class Projectify
         end
     end
 
-    def self.create_script_files(directory, parameters)
+    def create_script_files(directory, parameters)
       ###################
       #
       # This function will get all seperate generic files with the get_data(url, type, parameters) function
@@ -237,7 +237,7 @@ class Projectify
         end
 
     end
-    def self.create_varnish_files(directory, parameters)
+    def create_varnish_files(directory, parameters)
       ###################
       #
       # This function will get all seperate varnish files with the get_data(url, type, parameters) function
@@ -259,7 +259,7 @@ class Projectify
         end
     end
 
-    def self.create_gem_files(directory, parameters)
+    def create_gem_files(directory, parameters)
       ###################
       #
       # This function will get all seperate gem files with the get_data(url, type, parameters) function
@@ -285,7 +285,7 @@ class Projectify
         end
     end
 
-    def self.create_npm_files(directory, parameters)
+    def create_npm_files(directory, parameters)
       ###################
       #
       # This function will get all seperate nodejs files with the get_data(url, type, parameters) function
@@ -307,7 +307,7 @@ class Projectify
         end
     end
 
-    def self.create_vagrant_files(directory, parameters, url)
+    def create_vagrant_files(directory, parameters, url)
       if Dir.exist? directory
         output_vagrant = `cd #{directory}; git submodule add #{url} vagrant`
         if $?.success?
