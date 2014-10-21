@@ -317,9 +317,9 @@ class Projectify
         @logs.Debug("cd #{directory}; git submodule add #{url} vagrant")
         @logs.Debug(output_vagrant)
         if $?.success?
-          puts 'Success'.green
+          return true
         else
-          puts 'Error'.red
+          return false
         end
       end
     end
