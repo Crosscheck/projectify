@@ -313,11 +313,34 @@ class Projectify
 
     def create_vagrant_files(directory, parameters, url)
       if Dir.exist? directory
-        output_vagrant = `cd #{directory}; git submodule add #{url} vagrant`
-        @logs.Debug("cd #{directory}; git submodule add #{url} vagrant")
+        output_vagrant = `cd #{directory}; git clone #{url} vagrant`
+        @logs.Debug("cd #{directory}; git clone #{url} vagrant")
         @logs.Debug(output_vagrant)
         if $?.success?
-          return true
+          begin
+            temp_file = File.open(directory + 'vagrant/example.settings.json', 'w+')
+            temp_contents = ''
+            temp_file.each {|line| temp_contents += line  }
+            temp_contents.gsub!(/PROJECT_NAME/, parameters[:project_name])
+            temp_contents.gsub!(/SITE_NAME/, parameters[:project_name])
+            temp_contents.gsub!(/SITE_HOST/, parameters[:project_name])
+
+            temp_file.puts(temp_contents)
+
+            temp_file.close()
+            @logs.Success("Settings correctly written for vagrant.")
+
+            copy_settings_local = `cd #{directory}vagrant/ && cp example.settings.json settings.json && cp settings.json local.settings.json`
+
+            if $?.success?
+              @logs.Success("Correctly copied the settings file to settings.json and local.settings.json.")
+            else
+              @logs.Error("Failed to copy the settings file to settings.json and local.settings.json")
+            end
+            return true
+          rescue
+            return false
+          end
         else
           return false
         end
