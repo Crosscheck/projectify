@@ -317,6 +317,13 @@ class Projectify
         @logs.Debug("cd #{directory}; git clone #{url} vagrant")
         @logs.Debug(output_vagrant)
         if $?.success?
+            #
+            #This is a temporary fix, or shit won't work.
+            #
+            output_vagrant_rm_git = `cd #{directory}vagrant && rm -rf .git`
+            #
+            #
+            #
           begin
             temp_file = File.open(directory + 'vagrant/example.settings.json', 'w+')
             temp_contents = ''
