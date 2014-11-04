@@ -131,6 +131,11 @@ if projectify.create_structure(location + "scripts")
   puts "Creating scripts directory... [" + "FAILED".red + "]"
 end
 
+if projectify.create_structure(location + "etc/solr")
+  puts "Creating solr configuration directory... [" + "SUCCESS".green + "]"
+ else
+  puts "Creating solr configuration directory... [" + "FAILED".red + "]"
+end
 ########## END Basic Directory Structure ##########
 
 ########## Basic File Structure ##########

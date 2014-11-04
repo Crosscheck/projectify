@@ -51,7 +51,7 @@ class Projectify
     #
     #
     ###################
-    if Dir.mkdir(value)
+    if FileUtils.mkdir_p(value)
       output = `cd #{value};touch readme.md`
       return true
     else
