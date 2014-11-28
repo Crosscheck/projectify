@@ -313,7 +313,7 @@ class Projectify
 
     def create_vagrant_files(directory, parameters, url)
       if Dir.exist? directory
-        output_vagrant = `cd #{directory}; git clone #{url} vagrant`
+        output_vagrant = `cd #{directory}; git clone #{url} vagrant; cd vagrant && git checkout production`
         @logs.Debug("cd #{directory}; git clone #{url} vagrant")
         @logs.Debug(output_vagrant)
         if $?.success?
