@@ -182,8 +182,8 @@ end
 
 
 ##########################################
-logs.Debug("cd " + location + ";drush make scripts/" + param[:project_name] + ".make docroot")
-system("cd " + location + ";drush make scripts/" + param[:project_name] + ".make docroot")
+logs.Debug("cd " + location + ";drush make scripts/" + param[:project_name] + ".make docroot --concurrency=5")
+system("cd " + location + ";drush make scripts/" + param[:project_name] + ".make docroot --concurrency=5")
 if $?.success?
   logs.Success("Drush make succeeded")
 else
