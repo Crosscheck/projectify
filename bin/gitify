@@ -21,24 +21,20 @@ OptionParser.new do |opts|
   opts.on("-n", "--project_name=PROJECT_NAME", "Define the project name for your project. If this is empty, \"CrossCheck\" will be used.") do |project_name|
     options[:project_name] = project_name
   end
-  
+
   opts.on("-d", "--domain=LOCALDOMAIN", "Define the local development domain for this project. If this is empty, PROJECTNAME.dev will be used.") do |domain|
     options[:domain] = domain
   end
-    
+
   opts.on("-n", "--namespace=NAMESPACE", "Define the namespace of the repository. if this is empty, no namespace will be used.") do |namespace|
     options[:namespace] = namespace
   end
 
-  #opts.on("-g", "--git=REPOSITORY", "Define the repository.git | Example: --git=test.git") do |git|
-  #  options[:git] = git
-  #end
-
-  opts.on("-a", "--all", "Provision all branches. (Staging, Acc, Production, Master)") do |all|
+  opts.on("-a", "--all", "Provision all branches. (master, acc, staging, prod)") do |all|
         options[:all] = all
   end
 
-  opts.on("-br", "--branche=BRANCHES", "Branches split by a ,") do |branches|
+  opts.on("-br", "--branches=BRANCHES", "Branches split by a ,") do |branches|
         options[:branches] = branches
   end
 
@@ -79,7 +75,7 @@ end.parse!
 branch_arr = []
 
 if options[:all]
-  branch_arr = ["staging","acc","production"]
+  branch_arr = ["staging","acc","prod"]
 elsif options[:branches].length > 0
   branch_arr = options[:branches].split(',')
 else
@@ -145,7 +141,7 @@ else
 end
 
 if typec.length > 1
-    
+
     full_direc_typec = "--directory=#{direc} --type=#{typec}"
 else
     full_direc_typec = "--directory=#{direc}"
