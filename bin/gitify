@@ -143,7 +143,7 @@ location = Dir.pwd
 
 output_git_clone = `cd #{location} && git clone git@#{options[:gitlab_url]}:#{namespace}#{project_machine_name}`
 if $?.success?
-  output_projectify_master = `cd #{project_machine_name} && projectify --type=#{options[:type]} --project_name=#{options[:project_name]} --host_name=#{options[:domain]} -r #{options[:vagrant_url]}#{debug_c}`
+  output_projectify_master = `cd #{project_machine_name} && projectify --type=#{options[:type]} --project_name=#{options[:project_machine_name]} --host_name=#{options[:domain]} -r #{options[:vagrant_url]}#{debug_c}`
   puts output_projectify_master
   output_commit_master = `cd #{project_machine_name} && git add . && git commit -am "Initial structure" && git push origin master`
   branch_arr.each do |branch|
