@@ -54,7 +54,7 @@ class Projectify
     target_path = "#{@path}/#{@extra_files}"
     output = `cd #{@path} && git clone #{repository} --branch=master #{@extra_files}`
     @logs.Debug(output)
-    FileUtils.rm_rf("#{target_path}/.git");
+    FileUtils.rm_rf("#{target_path}/.git")
 
     self.parse_files(target_path)
     self.merge_files(target_path, @path)
@@ -86,7 +86,8 @@ class Projectify
   end
 
   def merge_files(from, to)
-    FileUtils.mv self.get_tree(from), to, :force => true
+    FileUtils.cp_r(self.get_tree(from), to)
+    FileUtils.rm_rf(from)
   end
 
   def get_tree(dir)
@@ -95,44 +96,22 @@ class Projectify
 
   def create_vagrant_files(directory, parameters, url)
     if Dir.exist? directory
-      output_vagrant = `cd #{directory}; git clone #{url} vagrant; cd vagrant && git checkout production`
-      @logs.Debug("cd #{directory}; git clone #{url} vagrant")
+      output_vagrant = `cd #{directory} && git clone #{url} --branch=master vagrant`
+      @logs.Debug("cd #{directory} && git clone #{url} --branch=master vagrant")
       @logs.Debug(output_vagrant)
+
       if $?.success?
-          #
-          #This is a temporary fix, or shit won't work.
-          #
-          output_vagrant_rm_git = `cd #{directory}/vagrant && rm -rf .git`
-          #
-          #
-          #
-        begin
-          temp_file = File.open(directory + '/vagrant/example.settings.json', 'w+')
-          temp_contents = ''
-          temp_file.each {|line| temp_contents += line  }
-          temp_contents.gsub!(/PROJECT_NAME/, parameters[:project_name])
-          temp_contents.gsub!(/SITE_NAME/, parameters[:project_name])
-          temp_contents.gsub!(/SITE_HOST/, parameters[:project_name])
+        settings_path = "#{directory}/vagrant/settings.json"
+        FileUtils.rm_rf("#{directory}/vagrant/.git")
+        FileUtils.cp("#{directory}/vagrant/example.settings.json", settings_path)
+        data = self.replace_placeholders(File.read(settings_path))
+        File.open(settings_path, "w") {|file| file.puts data }
+        @logs.Success("Correctly copied the settings file to settings.json.")
 
-          temp_file.puts(temp_contents)
-
-          temp_file.close()
-          @logs.Success("Settings correctly written for vagrant.")
-
-          copy_settings_local = `cd #{directory}/vagrant/ && cp example.settings.json settings.json && cp settings.json local.settings.json`
-
-          if $?.success?
-            @logs.Success("Correctly copied the settings file to settings.json and local.settings.json.")
-          else
-            @logs.Error("Failed to copy the settings file to settings.json and local.settings.json")
-          end
-          return true
-        rescue
-          return false
-        end
-      else
-        return false
+        return true
       end
     end
+
+    return false
   end
 end
