@@ -5,6 +5,7 @@ require 'colorize'
 require 'logging'
 options = {}
 logs = Logging.new(true)
+location = Dir.pwd
 
 ###################
 #
@@ -18,15 +19,11 @@ OptionParser.new do |opts|
   opts.on("-t", "--type=type", "Define the type for your project (general/drupal/capistrano). If this is empty, drupal will be used.") do |project_type|
     options[:project_type] = project_type
   end
-  
-  opts.on("-d", "--directory=DIRECTORY", "Define the directory for this project. This is required!.") do |directory|
-    options[:directory] = directory
-  end
-    
+
   opts.on("-p", "--project_name=PROJECTNAME", "Define the project name for your project. If this is empty, \"CrossCheck\" will be used.") do |project_name|
     options[:project_name] = project_name
   end
-    
+
   opts.on("-h", "--host_name=DOMAIN", "Define the local domain for your project. If this is empty, PROJECTNAME.dev will be used.") do |domain|
     options[:domain] = domain
   end
@@ -40,7 +37,7 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-projectify = Projectify.new(options[:debug_value])
+
 options[:site_name] = options[:domain].split('.')[0]
 
 
@@ -55,15 +52,21 @@ param[:site_name] = options[:site_name]
 param[:site_host] = options[:domain]
 
 ########## Option checks ##########
-if options[:directory].length <= 0
-    puts "You have to define a directory!".red
-    exit
-end
 
+# Make project_name required.
 if options[:project_name].length <= 1
     puts "You have to define a project name!".red
 end
+
+# Default project_type to drupal.
+if options[:project_type].length <= 1
+    puts "You have to define a project type!".red
+end
+
 ########## END Option checks ##########
+puts "Generating structure in #{location}"
+projectify = Projectify.new(options[:debug_value], param, location)
+
 
 ########## Basic directory structure ##########
 #
@@ -71,67 +74,22 @@ end
 # this will use different functions from the Projectify class (projectify.rb)
 #
 ###############################################
-location = ""
-
-if options[:directory].include? "."
-  if options[:directory].include? "/"
-    location = options[:directory]
-    if options[:directory][-1, 1] != "/"
-      location = location + "/"
-    end
-  else
-    location = options[:directory] + "/"
-  end
-end
 
 puts "Creating directory structure"
-if options.has_key?(:project_type)
-    if options[:project_type] == "drupal"
-      if projectify.create_dir_drupal(location) == true
-        puts "Creating drupal directory structure succeeded [" + "SUCCES".green + "]"
-      else
-        puts "Creation of drupal directory structure failed [" + "ERROR".red + "]"
-      end
-    elsif options[:project_type] == "capistrano"
-      if projectify.create_dir_default(location) == true
-        puts "Creating default directory structure succeeded [" + "SUCCES".green + "]"
-      else
-        puts "Creation of default directory structure failed [" + "ERROR".red + "]"
-      end
-    else
-      if projectify.create_dir_drupal(location) == true
-        puts "Creating drupal directory structure succeeded [" + "SUCCES".green + "]"
-      else
-        puts "Creation of drupal directory structure failed [" + "ERROR".red + "]"
-      end
-    end
+
+if projectify.setup_deploy(options[:project_type]) == true
+  puts "Creating deploy file structure succeeded [" + "SUCCES".green + "]"
 else
-    if projectify.create_dir_drupal(location) == true
-        puts "Creating drupal directory structure succeeded [" + "SUCCES".green + "]"
-    else
-        puts "Creation of drupal directory structure failed [" + "ERROR".red + "]"
-    end  
+  puts "Creating deploy file structure failed [" + "ERROR".red + "]"
 end
 
-#if projectify.create_structure(location + "docroot")
-#  puts "Creating docroot directory... [" + "SUCCESS".green + "]"
-# else
-#  puts "Creating docroot directory... [" + "FAILED".red + "]"
-#end
-
-if projectify.create_structure(location + "node_modules")
+if projectify.create_structure("node_modules")
   puts "Creating node_modules directory... [" + "SUCCESS".green + "]"
  else
   puts "Creating node_modules directory... [" + "FAILED".red + "]"
 end
 
-if projectify.create_structure(location + "scripts")
-  puts "Creating scripts directory... [" + "SUCCESS".green + "]"
- else
-  puts "Creating scripts directory... [" + "FAILED".red + "]"
-end
-
-if projectify.create_structure(location + "etc/solr")
+if projectify.create_structure("etc/solr")
   puts "Creating solr configuration directory... [" + "SUCCESS".green + "]"
  else
   puts "Creating solr configuration directory... [" + "FAILED".red + "]"
@@ -145,35 +103,8 @@ end
 #
 ###############################################
 
-if projectify.create_script_directories(location)
-    puts "Creating specific directory structures... [" + "SUCCESS".green + "]"
-else
-    puts "Creating specific directory structures... [" + "FAILED".red + "]"    
-end
+projectify.fetch_projectify_extra_files_skeleton("git@github.com:Crosscheck/projectify-extra-files.git")
 
-if projectify.create_script_files(location, param)
-    puts "Creating script files... [" + "SUCCESS".green + "]"
-else
-    puts "Creating script files... [" + "FAILED".red + "]"    
-end
-
-if projectify.create_varnish_files(location, param)
-    puts "Creating varnish files... [" + "SUCCESS".green + "]"
-else
-    puts "Creating varnish files... [" + "FAILED".red + "]"    
-end
-
-if projectify.create_gem_files(location, param)
-    puts "Creating gem files... [" + "SUCCESS".green + "]"
-else
-    puts "Creating gem files... [" + "FAILED".red + "]"    
-end
-
-if projectify.create_npm_files(location, param)
-    puts "Creating npm files... [" + "SUCCESS".green + "]"
-else
-    puts "Creating npm files... [" + "FAILED".red + "]"    
-end
 if projectify.create_vagrant_files(location, param, options[:vagrant])
     puts "Creating vagrant files... [" + "SUCCESS".green + "]"
   else
@@ -182,8 +113,10 @@ end
 
 
 ##########################################
-logs.Debug("cd " + location + ";drush make scripts/" + param[:project_name] + ".make docroot --concurrency=5")
-system("cd " + location + ";drush make scripts/" + param[:project_name] + ".make docroot --concurrency=5")
+logs.Debug("cd " + location + ";drush make " + param[:project_name] + ".make drupal --concurrency=5")
+system("cd " + location + ";drush make " + param[:project_name] + ".make drupal --concurrency=5")
+FileUtils.cp_r 'drupal/.', 'docroot'
+
 if $?.success?
   logs.Success("Drush make succeeded")
 else
