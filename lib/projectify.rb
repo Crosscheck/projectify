@@ -31,6 +31,8 @@ class Projectify
       result = output.include? 'capified'
     end
 
+    self.parse_files(@path)
+
     return result
   end
 
