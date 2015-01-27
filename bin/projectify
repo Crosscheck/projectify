@@ -77,12 +77,6 @@ projectify = Projectify.new(options[:debug_value], param, location)
 
 puts "Creating directory structure"
 
-if projectify.setup_deploy(options[:project_type]) == true
-  puts "Creating deploy file structure succeeded [" + "SUCCES".green + "]"
-else
-  puts "Creating deploy file structure failed [" + "ERROR".red + "]"
-end
-
 if projectify.create_structure("node_modules")
   puts "Creating node_modules directory... [" + "SUCCESS".green + "]"
  else
