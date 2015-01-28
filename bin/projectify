@@ -98,22 +98,6 @@ end
 ###############################################
 
 projectify.fetch_projectify_extra_files_skeleton("git@github.com:Crosscheck/projectify-extra-files.git")
-
-if projectify.create_vagrant_files(location, param, options[:vagrant])
-    puts "Creating vagrant files... [" + "SUCCESS".green + "]"
-  else
-    puts "Creating vagrant files... [" + "FAILED".red + "]"
-end
-
-
-##########################################
-logs.Debug("cd " + location + ";drush make " + param[:project_name] + ".make drupal --concurrency=5")
-system("cd " + location + ";drush make " + param[:project_name] + ".make drupal --concurrency=5")
-FileUtils.cp_r 'drupal/.', 'docroot'
-FileUtils.rm_rf 'drupal'
-
-if $?.success?
-  logs.Success("Drush make succeeded")
-else
-  logs.Error("Drush make failed")
-end
+projectify.create_vagrant_files(location, param, options[:vagrant])
+projectify.drush_make()
+projectify.symlink_site_directory()
