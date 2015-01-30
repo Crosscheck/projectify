@@ -146,4 +146,26 @@ class Projectify
 
     return false
   end
+
+  def create_boilerplate_theme(repository)
+    theme_dir = "#{@path}/docroot/sites/#{@parameters[:project_name]}/themes/custom"
+    boilerplate_theme_dir = "#{theme_dir}/#{@parameters[:project_name]}_omega"
+
+    self.run("mkdir -p #{theme_dir}")
+    self.run("cd #{theme_dir} && git clone #{repository} --branch=omega #{@parameters[:project_name]}_omega")
+
+    if $?.success?
+      FileUtils.rm_rf("#{boilerplate_theme_dir}/.git")
+      FileUtils.mv("#{boilerplate_theme_dir}/crosscheck_theme.info", "#{boilerplate_theme_dir}/#{@parameters[:project_name]}_omega.info")
+      @logs.Success("Set up the theme in #{theme_dir}/#{@parameters[:project_name]}_omega")
+      return true
+    end
+
+    return false
+  end
+
+  def run(command)
+    @logs.Debug(command)
+    system(command)
+  end
 end
