@@ -112,7 +112,9 @@ class Projectify
   def drush_make()
     @logs.Debug("cd #{@path} && drush make #{@parameters[:project_name]}.make drupal --concurrency=5")
     system("cd  #{@path} && drush make #{@parameters[:project_name]}.make drupal --concurrency=5")
-    system("cd  #{@path} && rm drupal/.gitignore")
+    if File.file?("#{@path}/drupal/.gitignore")
+      system("cd  #{@path} && rm drupal/.gitignore")
+    end
     self.merge_files 'drupal/.', 'docroot'
 
     if $?.success?
