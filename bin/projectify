@@ -28,10 +28,6 @@ OptionParser.new do |opts|
     options[:domain] = domain
   end
 
-  opts.on("-r", "--vagrant_url=URL", "Define the URL for a vagrant repository.") do |vagrant|
-    options[:vagrant] = vagrant
-  end
-
   opts.on("-v", "--debugging=TRUE/FALSE", "Define debugging true or false.") do |debug_value|
     options[:debug_value] = debug_value
   end
@@ -98,7 +94,7 @@ end
 ###############################################
 
 projectify.fetch_projectify_extra_files_skeleton("git@github.com:Crosscheck/projectify-extra-files.git")
-projectify.create_vagrant_files(location, param, options[:vagrant])
+projectify.create_vagrant_files(location, param, "https://github.com/ONEAgency/drupical")
 projectify.drush_make()
 projectify.symlink_site_directory()
 projectify.create_boilerplate_theme("git@github.com:Crosscheck/drupal-theme-boilerplate.git")
