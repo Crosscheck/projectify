@@ -135,9 +135,9 @@ class Projectify
       @logs.Debug(output_vagrant)
 
       if $?.success?
-        settings_path = "#{directory}/vagrant/settings.json"
+        settings_path = "#{directory}/vagrant/local.vagrant.settings.json"
         FileUtils.rm_rf("#{directory}/vagrant/.git")
-        FileUtils.cp("#{directory}/vagrant/example.settings.json", settings_path)
+        FileUtils.cp("#{directory}/vagrant/example.vagrant.settings.json", settings_path)
         data = self.replace_placeholders(File.read(settings_path))
         File.open(settings_path, "w") {|file| file.puts data }
         @logs.Success("Correctly copied the settings file to settings.json.")
