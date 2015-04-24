@@ -66,6 +66,7 @@ class Projectify
   def replace_placeholders(data)
     new_data = data.clone
     new_data.gsub!(/PROJECT_NAME/, @parameters[:project_name])
+    new_data.gsub!(/PROJECT_DOMAIN/, @parameters[:site_host])
     new_data.gsub!(/SITE_NAME/, @parameters[:site_name])
     new_data.gsub!(/SITE_HOST/, @parameters[:site_host])
     return new_data;
