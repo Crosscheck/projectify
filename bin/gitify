@@ -90,6 +90,12 @@ end
 #
 ###################
 
+#
+# The base url
+#
+
+http = Net::HTTP.new("http://#{options[:gitlab_url]}")
+
 puts "Getting namespace ID..."
 uri_groups = URI.parse("http://#{options[:gitlab_url]}/api/v3/groups?private_token=#{options[:token]}")
 http_groups = Net::HTTP.new(uri_groups.host, uri_groups.port)
@@ -119,6 +125,26 @@ request_repo.set_form_data({
 })
 
 response_repo = http_repo.request(request_repo)
+
+#
+#We will need to unprotect the master branch
+#
+repo_id = nil
+repo_json = JSON.parse(response_repo)
+repo_json.each do |item|
+  repo_id = item['id']
+end
+
+puts "Removing master branch protection."
+uri_branch = URI.parse("http://#{options[:gitlab_url]}/api/v3/projects/#{repo_id}/repository/branches/master/unprotect?private_token=#{options[:token]}")
+http_branch = Net::HTTP.new(uri_branch.host, uri_branch.port)
+request_branch = Net::HTTP::Put.new(uri_branch.request_uri)
+
+response_branch = http_branch.request(request_branch)
+#
+#End of removing the protection.
+#
+
 namespace = options.has_key?(:namespace) ? options[:namespace] + "/" : ""
 project_type = options.has_key?(:type) ? options[:type] : "drupal"
 
