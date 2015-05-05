@@ -159,7 +159,7 @@ class Projectify
 
     if $?.success?
       FileUtils.rm_rf("#{boilerplate_theme_dir}/.git")
-      FileUtils.mv("#{boilerplate_theme_dir}/crosscheck_theme.info", "#{boilerplate_theme_dir}/#{@parameters[:project_name]}_omega.info")
+      FileUtils.mv("#{boilerplate_theme_dir}/ocelot.info", "#{boilerplate_theme_dir}/#{@parameters[:project_name]}_omega.info")
       @logs.Success("Set up the theme in #{theme_dir}/#{@parameters[:project_name]}_omega")
       return true
     end
