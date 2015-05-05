@@ -129,6 +129,7 @@ response_repo = http_repo.request(request_repo)
 #
 #We will need to unprotect the master branch
 #
+puts response_repo.body
 repo_id = ""
 repo_json = JSON.parse(response_repo.body)
 repo_json.each do |item|
