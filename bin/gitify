@@ -134,6 +134,7 @@ repo_id = 0
 repo_json = JSON.parse(response_repo.body)
 puts repo_json
 repo_json.each do |item|
+  puts item['id']
   repo_id = item['id']
 end
 
