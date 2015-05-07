@@ -4,7 +4,7 @@ require 'colorize'
 class BuildServer
 
 	@environments 	= Array.new
-	@job_names 		= Array.new
+	
 
 	def initialize (username, password, server_ip, project_name, namespace)
 		########## constructor ################################################################################
@@ -51,6 +51,7 @@ class BuildServer
 		#
 		######################################################################################
 		@environments.each do |build_env|
+			@job_names 	= Array.new
 			@job_names.push("(#{@PROJECT_NAME.upcase}-#{build_env}) deploy|#{build_env}")
 			@job_names.push("(#{@PROJECT_NAME.upcase}-#{build_env}) deploy update|#{build_env}")
 		end
