@@ -3,8 +3,8 @@ require 'colorize'
 
 class BuildServer
 
-	@environments 	= []
-	@job_names 		= []
+	@environments 	= Array.new
+	@job_names 		= Array.new
 
 	def initialize (username, password, server_ip, project_name, namespace)
 		########## constructor ################################################################################
