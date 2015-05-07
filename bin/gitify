@@ -106,7 +106,7 @@ end
 
 #set envs for the build object
 branch_build_arr = branch_arr.push('master')
-build.set_environments(branch_build_arr)
+build.set_environment(branch_build_arr)
 
 ###################
 #
