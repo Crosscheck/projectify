@@ -5,7 +5,7 @@ require "net/http"
 require "uri"
 require "json"
 require 'colorize'
-require 'build_server'
+require 'buildserver'
 
 options = {}
 namespace_id = 0
@@ -82,7 +82,7 @@ end.parse!
 project_machine_name = options[:project_name].downcase.gsub(/\s/,'_')
 namespace_git = options[:namespace].downcase.gsub(/\s/,'-')
 
-build = build_server.new([:build_server_user],[:build_server_password],[:build_server_ip],project_machine_name,namespace_git)
+build = BuildServer.new([:build_server_user],[:build_server_password],[:build_server_ip],project_machine_name,namespace_git)
 #set the notifier email in the build object
 build.set_notifier(options[:notifier_email])
 

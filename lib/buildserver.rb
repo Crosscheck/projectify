@@ -1,7 +1,7 @@
 require 'jenkins_api_client'
 require 'colorize'
 
-class build_server
+class BuildServer
 
 	@environments 	= []
 	@job_names 		= []
