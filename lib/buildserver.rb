@@ -39,7 +39,6 @@ class BuildServer
 		# In addition, we will also generate the job names that we can use later on for our API calls.
 		#
 		###############################################################################################
-		puts environments
 		@environments = environments
 		generate_job_names()
 	end
@@ -51,9 +50,8 @@ class BuildServer
 		# We'll also add the environment type with a pipe to the name for future use.
 		#
 		######################################################################################
-		puts @environments
+		@job_names 	= Array.new
 		@environments.each do |build_env|
-			@job_names 	= Array.new
 			@job_names.push("(#{@PROJECT_NAME.upcase}-#{build_env}) deploy|#{build_env}")
 			@job_names.push("(#{@PROJECT_NAME.upcase}-#{build_env}) deploy update|#{build_env}")
 		end
@@ -100,8 +98,8 @@ class BuildServer
 		#####################################################################################################################
 		@job_names.each do |job|
 
-			if job.split('|')[1] == "dev"
-				job_env = "master"
+			if job.split('|')[1] == "master"
+				job_env = "dev"
 			else
 				job_env = job.split('|')[1]
 			end
