@@ -98,15 +98,15 @@ branch_arr = []
 
 if options[:all]
   branch_arr = ["staging","acc","prod"]
+  branch_build_arr = ["master","acc","prod","master"]
 elsif options[:branches].length > 0
   branch_arr = options[:branches].split(',')
+  branch_build_arr = options[:branches].split(',')
 else
   puts "No branches defined. Will only provision master branch."
 end
 
 #set envs for the build object
-branch_build_arr = branch_arr
-branch_build_arr.push('master')
 build.set_environment(branch_build_arr)
 
 ###################
