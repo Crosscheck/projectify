@@ -82,7 +82,7 @@ end.parse!
 project_machine_name = options[:project_name].downcase.gsub(/\s/,'_')
 namespace_git = options[:namespace].downcase.gsub(/\s/,'-')
 
-build = BuildServer.new([:build_server_user],[:build_server_password],[:build_server_ip],project_machine_name,namespace_git)
+build = BuildServer.new(options[:build_server_user],options[:build_server_password],options[:build_server_ip],project_machine_name,namespace_git)
 #set the notifier email in the build object
 build.set_notifier(options[:notifier_email])
 
@@ -105,7 +105,8 @@ else
 end
 
 #set envs for the build object
-branch_build_arr = branch_arr.push('master')
+branch_build_arr = branch_arr
+branch_build_arr.push('master')
 build.set_environment(branch_build_arr)
 
 ###################
