@@ -52,8 +52,13 @@ class BuildServer
 		######################################################################################
 		@job_names 	= Array.new
 		@environments.each do |build_env|
-			@job_names.push("(#{@PROJECT_NAME.upcase}-#{build_env}) deploy|#{build_env}")
-			@job_names.push("(#{@PROJECT_NAME.upcase}-#{build_env}) deploy update|#{build_env}")
+			if build_env == "master"
+				build_dev_env = "dev"
+			else
+				build_dev_env = build_env
+			end
+			@job_names.push("(#{@PROJECT_NAME.upcase}-#{build_dev_env}) deploy|#{build_dev_env}")
+			@job_names.push("(#{@PROJECT_NAME.upcase}-#{build_dev_env}) deploy update|#{build_dev_env}")
 		end
 	end
 
@@ -98,12 +103,6 @@ class BuildServer
 		#####################################################################################################################
 		@job_names.each do |job|
 
-			if job.split('|')[1] == "master"
-				job_env = "dev"
-			else
-				job_env = job.split('|')[1]
-			end
-
 			if job.split('|')[0].include?("update")
 				type_string = " update"
 			else
@@ -116,7 +115,7 @@ class BuildServer
 															:scm_provider		=>	'git',
 															:scm_url			=>	"git@gitlab.crosscheck.be:#{@NAMESPACE}/#{@PROJECT_NAME}",
 															:scm_branch			=>	job_env,
-															:shell_command		=>	"cap #{job_env} deploy#{type_string}",
+															:shell_command		=>	"cap #{job.split('|')[1]} deploy#{type_string}",
 															:notification_email	=>	@notifier
 															)
 			if deploy == "200"
