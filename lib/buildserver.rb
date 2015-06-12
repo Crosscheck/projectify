@@ -114,21 +114,26 @@ class BuildServer
 			else
 				build_dev_env = job.split('|')[1]
 			end
-
-			deploy = @client.job.create_or_update_freestyle(
-															:name 				=>	"#{job.split('|')[0]}",
-															:keep_dependencies	=>	true,
-															:scm_provider		=>	'git',
-															:scm_url			=>	"git@gitlab.crosscheck.be:#{@NAMESPACE}/#{@PROJECT_NAME}",
-															:scm_branch			=>	build_dev_env,
-															:shell_command		=>	"cap #{job.split('|')[1]} deploy#{type_string}",
-															:notification_email	=>	@notifier
-															)
-			if deploy == "200"
-				good_job("#{job.split('|')[0]}")
-			else
-				bad_job("#{job.split('|')[0]}")
+			begin 
+				deploy = @client.job.create_or_update_freestyle(
+																:name 				=>	"#{job.split('|')[0]}",
+																:keep_dependencies	=>	true,
+																:scm_provider		=>	'git',
+																:scm_url			=>	"git@gitlab.crosscheck.be:#{@NAMESPACE}/#{@PROJECT_NAME}",
+																:scm_branch			=>	build_dev_env,
+																:shell_command		=>	"cap #{job.split('|')[1]} deploy#{type_string}",
+																:notification_email	=>	@notifier
+																)
+				if deploy == "200"
+					good_job("#{job.split('|')[0]}")
+				else
+					bad_job("#{job.split('|')[0]}")
+				end
+			rescue JobAlreadyExists
+				bad_job("#{job.split('|')[0]} already exists.")
 			end
+
+
 		end
 	end
 end
