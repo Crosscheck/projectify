@@ -129,8 +129,9 @@ class BuildServer
 				else
 					bad_job("#{job.split('|')[0]}")
 				end
-			rescue JobAlreadyExists
-				bad_job("#{job.split('|')[0]} already exists.")
+			rescue 
+				@error_message	= "#{$!}"
+				bad_job("#{@error_message}")
 			end
 
 
