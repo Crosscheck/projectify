@@ -4,6 +4,7 @@ require 'openssl'
 require 'uri'
 require 'colorize'
 require 'logging'
+require 'json'
 
 class Projectify
   def initialize(debug_value, parameters, path)
@@ -56,7 +57,7 @@ class Projectify
     target_path = "#{@path}/#{@extra_files}"
     result = self.github_clone_latest_release(user, repository, target_path)
 
-    if result?
+    if result
       self.parse_files(target_path)
       self.merge_files(target_path, @path)
       FileUtils.rm_rf(target_path);
@@ -119,6 +120,7 @@ class Projectify
     self.merge_files 'drupal/.', 'docroot'
 
     if $?.success?
+      FileUtils.rm_rf('drupal')
       @logs.Success("Drush make succeeded")
     else
       @logs.Error("Drush make failed")
@@ -130,11 +132,16 @@ class Projectify
   end
 
   def github_fetch_latest_release_tag(user, repository)
-    request = Net::HTTP.get_response("https://api.github.com/repos/#{user}/#{repository}/releases/latest")
+    request = Net::HTTP.get_response(URI.parse("https://api.github.com/repos/#{user}/#{repository}/releases/latest"))
     result = JSON.parse(request.body)
 
-    if result.tag_name
-      return result.tag_name
+    if result["tag_name"] != false
+      # Handle Ocelot releases.
+      if repository == "Ocelot"
+        result["tag_name"].gsub!(/.nd/, "")
+        result["tag_name"] = "#{result["tag_name"]}.om"
+      end
+      return result["tag_name"]
     end
 
     return false
@@ -142,7 +149,7 @@ class Projectify
 
   def github_clone_latest_release(user, repository, target_path)
     latest_release = self.github_fetch_latest_release_tag(user, repository)
-    self.run("git clone git@github.com:#{user}/#{repository} --depth=1 --tag=#{latest_release} #{target_path}")
+    self.run("git clone git@github.com:#{user}/#{repository} --depth=1 --branch=#{latest_release} #{target_path}")
     if $?.success?
       FileUtils.rm_rf("#{target_path}/.git")
       return true
@@ -154,7 +161,7 @@ class Projectify
     if Dir.exist? @path
       result = self.github_clone_latest_release(user, repository, "#{@path}/vagrant")
 
-      if result?
+      if result
         settings_path = "#{@path}/vagrant/local.vagrant.settings.json"
         FileUtils.cp("#{@path}/vagrant/example.vagrant.settings.json", settings_path)
         data = self.replace_placeholders(File.read(settings_path))
@@ -175,7 +182,7 @@ class Projectify
     self.run("mkdir -p #{theme_dir}")
     result = self.github_clone_latest_release(user, repository, boilerplate_theme_dir)
 
-    if result?
+    if result
       FileUtils.mv("#{boilerplate_theme_dir}/ocelot.info", "#{boilerplate_theme_dir}/#{@parameters[:project_name]}_omega.info")
       @logs.Success("Set up the theme in #{theme_dir}/#{@parameters[:project_name]}_omega")
       return true
