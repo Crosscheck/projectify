@@ -54,7 +54,7 @@ class Projectify
 
   def fetch_projectify_extra_files_skeleton(repository)
     target_path = "#{@path}/#{@extra_files}"
-    output = `cd #{@path} && git clone #{repository} --branch=master #{@extra_files}`
+    output = `cd #{@path} && git clone #{repository} --depth=1 --branch=master #{@extra_files}`
     @logs.Debug(output)
     FileUtils.rm_rf("#{target_path}/.git")
 
@@ -129,21 +129,36 @@ class Projectify
     return Dir.glob("#{dir}/*", File::FNM_DOTMATCH) - ["#{dir}/.", "#{dir}/.."]
   end
 
+  def github_fetch_latest_release_tag(user, project)
+    request = Net::HTTP.get_response("https://api.github.com/repos/#{user}/#{project}/releases/latest")
+    result = JSON.parse(request.body)
+
+    if result.tag_name
+      return result.tag_name
+    end
+
+    return false
+  end
+
   def create_vagrant_files(directory, parameters, url)
     if Dir.exist? directory
-      output_vagrant = `cd #{directory} && git clone #{url} --branch=master vagrant`
-      @logs.Debug("cd #{directory} && git clone #{url} --branch=master vagrant")
-      @logs.Debug(output_vagrant)
 
-      if $?.success?
-        settings_path = "#{directory}/vagrant/local.vagrant.settings.json"
-        FileUtils.rm_rf("#{directory}/vagrant/.git")
-        FileUtils.cp("#{directory}/vagrant/example.vagrant.settings.json", settings_path)
-        data = self.replace_placeholders(File.read(settings_path))
-        File.open(settings_path, "w") {|file| file.puts data }
-        @logs.Success("Correctly copied the settings file to settings.json.")
+      # Fetch latest release tag.
+      latest_release = self.github_fetch_latest_release_tag('ONEAgency', 'drupical')
 
-        return true
+      if latest_release
+        result = self.run("cd #{directory} && git clone #{url} --depth=1 --tag=#{latest_release} vagrant")
+
+        if $?.success?
+          settings_path = "#{directory}/vagrant/local.vagrant.settings.json"
+          FileUtils.rm_rf("#{directory}/vagrant/.git")
+          FileUtils.cp("#{directory}/vagrant/example.vagrant.settings.json", settings_path)
+          data = self.replace_placeholders(File.read(settings_path))
+          File.open(settings_path, "w") {|file| file.puts data }
+          @logs.Success("Correctly copied the settings file to settings.json.")
+
+          return true
+        end
       end
     end
 
