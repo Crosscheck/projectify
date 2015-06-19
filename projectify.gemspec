@@ -1,12 +1,12 @@
 require 'colorize'
 Gem::Specification.new do |s|
   s.name        = 'projectify'
-  s.version     = '1.5.0'
-  s.date        = '2015-01-28'
+  s.version     = '1.6.0'
+  s.date        = '2015-06-19'
   s.summary     = 'Projectify your setup!'
   s.description = 'A small gem that creates a basic structure for a development project with drupal or capistrano in general.'
-  s.authors     = ['Sebastiaan Provost']
-  s.email       = 'sebastiaan.provost@one-agency.be'
+  s.authors     = ['Sebastiaan Provost', 'Klaas Van Waesberghe']
+  s.email       = 'support.gent@one-agency.be'
   s.files       = ['lib/logging.rb', 'lib/projectify.rb', 'lib/buildserver.rb']
   s.executables = ['projectify', 'gitify']
   s.homepage    ='http://github.com/CrossCheck/projectify'
