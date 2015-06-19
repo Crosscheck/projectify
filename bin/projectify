@@ -93,8 +93,8 @@ end
 #
 ###############################################
 
-projectify.fetch_projectify_extra_files_skeleton("git@github.com:Crosscheck/projectify-extra-files.git")
-projectify.create_vagrant_files(location, param, "https://github.com/ONEAgency/drupical")
+projectify.fetch_projectify_extra_files_skeleton("Crosscheck", "projectify-extra-files.git")
+projectify.create_vagrant_files("ONEAgency", "drupical.git")
 projectify.drush_make()
 projectify.symlink_site_directory()
-projectify.create_boilerplate_theme("git@github.com:Crosscheck/Ocelot.git")
+projectify.create_boilerplate_theme("Crosscheck", "Ocelot.git")

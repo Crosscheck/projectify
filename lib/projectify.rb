@@ -52,15 +52,15 @@ class Projectify
     end
   end
 
-  def fetch_projectify_extra_files_skeleton(repository)
+  def fetch_projectify_extra_files_skeleton(user, repository)
     target_path = "#{@path}/#{@extra_files}"
-    output = `cd #{@path} && git clone #{repository} --depth=1 --branch=master #{@extra_files}`
-    @logs.Debug(output)
-    FileUtils.rm_rf("#{target_path}/.git")
+    result = self.github_clone_latest_release(user, repository, target_path)
 
-    self.parse_files(target_path)
-    self.merge_files(target_path, @path)
-    FileUtils.rm_rf(target_path);
+    if result?
+      self.parse_files(target_path)
+      self.merge_files(target_path, @path)
+      FileUtils.rm_rf(target_path);
+    end
   end
 
   def replace_placeholders(data)
@@ -129,8 +129,8 @@ class Projectify
     return Dir.glob("#{dir}/*", File::FNM_DOTMATCH) - ["#{dir}/.", "#{dir}/.."]
   end
 
-  def github_fetch_latest_release_tag(user, project)
-    request = Net::HTTP.get_response("https://api.github.com/repos/#{user}/#{project}/releases/latest")
+  def github_fetch_latest_release_tag(user, repository)
+    request = Net::HTTP.get_response("https://api.github.com/repos/#{user}/#{repository}/releases/latest")
     result = JSON.parse(request.body)
 
     if result.tag_name
@@ -140,40 +140,42 @@ class Projectify
     return false
   end
 
-  def create_vagrant_files(directory, parameters, url)
-    if Dir.exist? directory
+  def github_clone_latest_release(user, repository, target_path)
+    latest_release = self.github_fetch_latest_release_tag(user, repository)
+    self.run("git clone git@github.com:#{user}/#{repository} --depth=1 --tag=#{latest_release} #{target_path}")
+    if $?.success?
+      FileUtils.rm_rf("#{target_path}/.git")
+      return true
+    end
+    return false
+  end
 
-      # Fetch latest release tag.
-      latest_release = self.github_fetch_latest_release_tag('ONEAgency', 'drupical')
+  def create_vagrant_files(user, repository)
+    if Dir.exist? @path
+      result = self.github_clone_latest_release(user, repository, "#{@path}/vagrant")
 
-      if latest_release
-        result = self.run("cd #{directory} && git clone #{url} --depth=1 --tag=#{latest_release} vagrant")
+      if result?
+        settings_path = "#{@path}/vagrant/local.vagrant.settings.json"
+        FileUtils.cp("#{@path}/vagrant/example.vagrant.settings.json", settings_path)
+        data = self.replace_placeholders(File.read(settings_path))
+        File.open(settings_path, "w") {|file| file.puts data }
+        @logs.Success("Correctly copied the settings file to settings.json.")
 
-        if $?.success?
-          settings_path = "#{directory}/vagrant/local.vagrant.settings.json"
-          FileUtils.rm_rf("#{directory}/vagrant/.git")
-          FileUtils.cp("#{directory}/vagrant/example.vagrant.settings.json", settings_path)
-          data = self.replace_placeholders(File.read(settings_path))
-          File.open(settings_path, "w") {|file| file.puts data }
-          @logs.Success("Correctly copied the settings file to settings.json.")
-
-          return true
-        end
+        return true
       end
     end
 
     return false
   end
 
-  def create_boilerplate_theme(repository)
+  def create_boilerplate_theme(user, repository)
     theme_dir = "#{@path}/docroot/sites/#{@parameters[:project_name]}/themes/custom"
     boilerplate_theme_dir = "#{theme_dir}/#{@parameters[:project_name]}_omega"
 
     self.run("mkdir -p #{theme_dir}")
-    self.run("cd #{theme_dir} && git clone #{repository} --branch=omega #{@parameters[:project_name]}_omega")
+    result = self.github_clone_latest_release(user, repository, boilerplate_theme_dir)
 
-    if $?.success?
-      FileUtils.rm_rf("#{boilerplate_theme_dir}/.git")
+    if result?
       FileUtils.mv("#{boilerplate_theme_dir}/ocelot.info", "#{boilerplate_theme_dir}/#{@parameters[:project_name]}_omega.info")
       @logs.Success("Set up the theme in #{theme_dir}/#{@parameters[:project_name]}_omega")
       return true
