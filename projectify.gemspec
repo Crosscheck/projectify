@@ -10,7 +10,8 @@ Gem::Specification.new do |s|
   s.files       = ['lib/logging.rb', 'lib/projectify.rb', 'lib/buildserver.rb']
   s.executables = ['projectify', 'gitify']
   s.homepage    ='http://github.com/CrossCheck/projectify'
-  s.license       = 'MIT'
+  s.license     = 'MIT'
+
   s.add_dependency 'colorize'
   s.add_dependency 'json'
   s.add_dependency 'jenkins_api_client'
