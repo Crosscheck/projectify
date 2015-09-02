@@ -58,7 +58,7 @@ class BuildServer
 				build_dev_env = build_env
 			end
 			@job_names.push("(#{@PROJECT_NAME.upcase}-#{build_dev_env}) deploy|#{build_dev_env}")
-			@job_names.push("(#{@PROJECT_NAME.upcase}-#{build_dev_env}) deploy update|#{build_dev_env}")
+			@job_names.push("(#{@PROJECT_NAME.upcase}-#{build_dev_env}) deploy:update|#{build_dev_env}")
 		end
 	end
 
