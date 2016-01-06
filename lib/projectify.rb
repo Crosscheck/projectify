@@ -137,11 +137,6 @@ class Projectify
     result = JSON.parse(request.body)
 
     if result["tag_name"] != false
-      # Handle Ocelot releases.
-      if repository == "Ocelot"
-        result["tag_name"].gsub!(/.nd/, "")
-        result["tag_name"] = "#{result["tag_name"]}.om"
-      end
       return result["tag_name"]
     end
 
