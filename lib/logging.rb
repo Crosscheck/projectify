@@ -4,6 +4,7 @@ class Logging
   def initialize(debug_enable)
     @debug_enable = debug_enable
   end
+
   def Debug(value)
     if @debug_enable == true
       puts '[DEBUG] ' + value.yellow
