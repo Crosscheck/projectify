@@ -6,22 +6,32 @@ require 'colorize'
 require 'logging'
 require 'json'
 
+##
+# This class represents the command to setup your project.
 class Projectify
+
+  ##
+  #Creates a new Projectify instance
+  #
+  # ==== Attributes
+  #
+  # * +debug_value+ - To enable debugging set to true.
+  # * +parameters+ - the parameters passed to projectify.
+  # * +path+ - The path to temporarily store the extra files.
   def initialize(debug_value, parameters, path)
     debugs = debug_value
     @logs = Logging.new(debugs)
-    # The parameters passed to projectify.
     @parameters = parameters
-    # The path to build the project in.
     @path = path
-    # The path to temporarily store the extra files in.
     @extra_files = 'extra-files'
   end
-  ###############
-  #
+  
+  ##
   # Sets up deployment files.
   #
-  ###############
+  # ==== Attributes
+  #
+  # * +type+ - The type of project to setup.
   def setup_deploy(type)
     result = false
     if type == "drupal"
@@ -37,14 +47,13 @@ class Projectify
     return result
   end
 
+  ##
+  # Add a directory to your repository.
+  #
+  # ==== Attributes
+  #
+  # * +value+ - Set to true to create a directory.
   def create_structure(value)
-    ###################
-    #
-    # This function allows you to add a directory to your repository
-    #
-    #
-    #
-    ###################
     if FileUtils.mkdir_p(value)
       output = `cd #{value};touch readme.md`
       return true
